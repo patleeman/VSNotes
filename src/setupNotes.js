@@ -2,14 +2,12 @@
 const vscode = require('vscode');
 
 module.exports = function () {
-  const msg = 'Welcome to VSNotes. To begin, choose a location to save your notes.';
+  const msg = 'Welcome to VSNotes. To begin, choose a location to save your notes. Click Start to continue ->';
 
   const startOption = vscode.window.showInformationMessage(msg, ...['Start']);
   startOption.then(value => {
 
     if (value === 'Start') {
-      console.log('start');
-
       // Open a folder picker for user to choose note folder
       const uriPromise = vscode.window.showOpenDialog({
         canSelectFiles: false,
@@ -19,15 +17,17 @@ module.exports = function () {
       });
 
       uriPromise.then(res => {
-        console.log(res)
         if (res.length > 0 && res[0].path) {
           const noteFolder = vscode.workspace.getConfiguration('vsnotes');
-          const update = noteFolder.update('defaultNotePath', res[0].path)
-          update.then(value => {
-            vscode.window.showInformationMessage('Note Path Saved')
-          })
+          const update = noteFolder.update('defaultNotePath', res[0].path, true);
+          update.then(() => {
+            vscode.window.showInformationMessage('Note Path Saved. Edit the location by re-running setup or editing the path in VS Code Settings.');
+          });
         }
-      })
+      }).catch(err => {
+        vscode.window.showErrorMessage('Error occurred during setup.')
+        console.error(err)
+      });
 
     }
   })
