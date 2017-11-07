@@ -120,5 +120,5 @@ Available settings
 
 # Changelog
 
-v 1.0.0
+v 0.1.0
 - Initial release
