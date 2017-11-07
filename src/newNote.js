@@ -12,9 +12,6 @@ module.exports = function () {
   const noteFolder = config.get('defaultNotePath');
   const defaultNoteTitle = config.get('defaultNoteTitle');
   const tokens = config.get('tokens');
-  console.log('tokens first', tokens)
-  const titleStart = defaultNoteTitle.indexOf('{title}') || 0;
-  const titleEnd = titleStart + 7 > defaultNoteTitle.length ? defaultNoteTitle.length : titleStart + 7
 
   if (noteFolder == null || !noteFolder) {
     vscode.window.showErrorMessage('Default note folder not found. Please run setup.');
@@ -23,9 +20,8 @@ module.exports = function () {
 
   // Get the name for the note
   const inputBoxPromise = vscode.window.showInputBox({
-    prompt: 'Note Title',
-    value: defaultNoteTitle,
-    valueSelection: [titleStart, titleEnd]
+    prompt: 'Note Title. Replaces title token. Current Format: ' + defaultNoteTitle + '',
+    value: '',
   })
 
   inputBoxPromise.then(noteName => {
@@ -34,7 +30,7 @@ module.exports = function () {
       return false
     }
 
-    let fileName = replaceTokens(noteName, tokens);
+    let fileName = replaceTokens(defaultNoteTitle, noteName, tokens);
 
     // Create the file
     const createFilePromise = createFile(noteFolder, fileName, '')
@@ -76,28 +72,36 @@ function createFile (folderPath, fileName) {
 }
 
 
-function replaceTokens (tokenString, tokens) {
-  console.log('tokens', tokens)
+function replaceTokens (format, title, tokens) {
+  console.log('replaceTokens', format, title, tokens)
   const pattern = /(?:\{)(.+?)(?:\})/g;
   var result;
-  while ((result = pattern.exec(tokenString)) != null) {
+  while ((result = pattern.exec(format)) != null) {
     for (let token of tokens) {
-      // If the token matches
-      console.log(token.token, result[0])
       if (token.token === result[0]) {
         switch (token.type) {
           case "datetime":
-            tokenString = tokenString.replace(result[0], moment().format(token.format));
+            format = format.replace(result[0], moment().format(token.format));
             break;
           case "title":
-            tokenString = tokenString.replace(token.token, token.format)
+            let prependedPath = ''
+            // Check if its a nested path
+            const splitTitle = title.split(path.sep);
+            console.log('split title ', splitTitle, path.sep)
+            if (splitTitle.length > 1) {
+              title = splitTitle[splitTitle.length - 1];
+              prependedPath = splitTitle.slice(0,splitTitle.length - 1);
+            }
+            format = prependedPath.concat(format.replace(token.token, title)).join(path.sep);
+            console.log(format)
             break;
           case "extension":
-            tokenString = tokenString.replace(token.token, token.format)
+            format = format.replace(token.token, token.format)
             break;
         }
       }
     }
   }
-  return tokenString;
+  console.log('final format ', format)
+  return format;
 }
