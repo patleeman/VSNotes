@@ -3,6 +3,10 @@ Take markdown notes from VS Code quickly and easily.
 
 ![](https://github.com/patleeman/VSNotes/raw/master/img/vsnotes_commands.png)
 
+# Repository
+
+[VS Notes is MIT Licensed and available on Github](https://github.com/patleeman/VSNotes)
+
 # Features
 1. Access commands quickly from the VS Code command palette `Ctrl/Cmd + Shift + p`.
 2. Set a base folder for your notes and all notes created will be saved in that folder.
@@ -118,7 +122,3 @@ Available settings
 # Roadmap & Features
 - Tags: Utilizing YAML encoded front matter on a markdown note with a tags array to tag notes. VS Note can keep an index in the main notes folder and use that to quickly access notes.
 
-# Changelog
-
-v 0.1.0
-- Initial release
