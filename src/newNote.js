@@ -88,7 +88,7 @@ function replaceTokens (format, title, tokens) {
             format = format.replace(new RegExp(result[0], 'g'), moment().format(token.format));
             break;
           case "title":
-            let prependedPath = ''
+            let prependedPath = [];
             // Check if its a nested path
             const splitTitle = title.split(path.sep);
             if (splitTitle.length > 1) {
