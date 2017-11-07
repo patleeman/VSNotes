@@ -1,7 +1,7 @@
 # VS Notes
 Take markdown notes from VS Code quickly and easily.
 
-![](./img/vsnotes_commands.png)
+![](https://github.com/patleeman/VSNotes/raw/master/img/vsnotes_commands.png)
 
 # Features
 1. Access commands quickly from the VS Code command palette `Ctrl/Cmd + Shift + p`.
@@ -65,11 +65,11 @@ VSNotes understands file paths and will create folders as necessary. When prompt
 
 *Input text delimited by your system's file path separator. Windows: `\` Mac/Linux: `/`*
 
-![](./img/vsnotes_path_detection.png)
+![](https://github.com/patleeman/VSNotes/raw/master/img/vsnotes_path_detection.png)
 
 *VSCode generates necessary subfolders and places the new note inside*
 
-![](./img/vsnotes_path_detection_completed.png)
+![](https://github.com/patleeman/VSNotes/raw/master/img/vsnotes_path_detection_completed.png)
 
 
 # Settings
