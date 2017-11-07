@@ -19,6 +19,13 @@ function activate(context) {
     // Run setup
     let setupDisposable = vscode.commands.registerCommand('extension.setupNotes', setupNotes);
     context.subscriptions.push(setupDisposable);
+
+    // Open note folder in new workspace
+    let openNoteFolderDisposable = vscode.commands.registerCommand('extension.openNoteFolder', () => {
+      const uri = vscode.Uri.file(vscode.workspace.getConfiguration('vsnotes').get('defaultNotePath'));
+      return vscode.commands.executeCommand('vscode.openFolder', uri);
+    })
+    context.subscriptions.push(openNoteFolderDisposable);
 }
 exports.activate = activate;
 

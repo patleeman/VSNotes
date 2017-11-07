@@ -13,7 +13,8 @@
     "activationEvents": [
         "onCommand:extension.newNote",
         "onCommand:extension.listNotes",
-        "onCommand:extension.setupNotes"
+        "onCommand:extension.setupNotes",
+        "onCommand:extension.openNoteFolder"
     ],
     "main": "./extension",
     "contributes": {
@@ -25,6 +26,11 @@
                     "type": "string",
                     "default": "",
                     "description": "Default location to save notes."
+                },
+                "vsnotes.defaultFilenameFormat": {
+                    "type": "string",
+                    "default": "{YYYY-MM-DD_HH-mm}_{title}",
+                    "description": "Default filename format. See <documentation> for information. Accepts date time formatting {YYYY-MM-DD_HH-mm}."
                 }
             }
         },
@@ -40,6 +46,10 @@
             {
                 "command": "extension.setupNotes",
                 "title": "VSNotes: Run setup"
+            },
+            {
+                "command": "extension.openNoteFolder",
+                "title": "VSNotes: Open Note Folder"
             }
         ]
     },
@@ -54,5 +64,9 @@
         "eslint": "^4.6.1",
         "@types/node": "^7.0.0",
         "@types/mocha": "^2.2.42"
+    },
+    "dependencies": {
+        "fs-extra": "^4.0.2",
+        "moment": "^2.19.1"
     }
 }

@@ -1,12 +1,16 @@
 
 const vscode = require('vscode');
-const fs = require('fs');
+const fs = require('fs-extra');
 const path = require('path');
+const moment = require('moment');
 
 // This function handles creation of a new note
 module.exports = function () {
+
   // Get note folder
-  const noteFolder = vscode.workspace.getConfiguration('vsnotes').get('defaultNotePath');
+  const config = vscode.workspace.getConfiguration('vsnotes');
+  const noteFolder = config.get('defaultNotePath');
+  const filenameFormat = config.get('defaultFilenameFormat');
 
   if (noteFolder == null || !noteFolder) {
     vscode.window.showErrorMessage('Default note folder not found. Please run setup.');
@@ -14,9 +18,12 @@ module.exports = function () {
   }
 
   // Get the name for the note
+  const filename = generateFilename(filenameFormat)
+  const titleIdx = filename.indexOf('{title}')
   const inputBoxPromise = vscode.window.showInputBox({
-    prompt: "Note Title",
-    value: "Untitled"
+    prompt: 'Note Title',
+    value: filename,
+    valueSelection: [titleIdx, titleIdx + 7]
   })
 
   inputBoxPromise.then(noteName => {
@@ -25,17 +32,8 @@ module.exports = function () {
       return false
     }
 
-    // Generate file name
-    let filename = Math.floor(Date.now() / 1000) + "_";
-    if (noteName != null && noteName) {
-      filename += noteName + '.md';
-    } else {
-      filename += 'Untitled.md';
-    }
-
     // Create the file
-    const createFilePromise = createFile(noteFolder, filename, '')
-    console.log(createFilePromise)
+    const createFilePromise = createFile(noteFolder, noteName, '')
     createFilePromise.then(filePath => {
       if (typeof filePath !== 'string') {
         console.error('Invalid file path')
@@ -57,16 +55,39 @@ module.exports = function () {
 
 }
 
-// Create the given file
-function createFile (folderPath, fileName, contents) {
+// Create the given file if it doesn't exist
+function createFile (folderPath, fileName) {
   return new Promise((resolve, reject) => {
     if (folderPath == null || fileName == null) {
       reject();
     }
     const fullPath = path.join(folderPath, fileName);
-    fs.writeFile(fullPath, contents, err => {
-      if (err) reject(err);
-      resolve(fullPath);
-    });
+    // fs-extra
+    fs.ensureFile(fullPath).then(() => {
+      resolve(fullPath)
+    }).catch(err => {
+      reject(err)
+    })
   });
+}
+
+// Generate a filename from a file name template
+function generateFilename (filenameTemplateString) {
+  const pattern = /(?:\{)(.+?)(?:\})/g;
+  var result;
+  while ((result = pattern.exec(filenameTemplateString)) != null) {
+    switch (result[0]) {
+      case '{title}':
+        break;
+      default:
+        const time = moment().format(result[1]);
+        filenameTemplateString = filenameTemplateString.replace(result[0], time);
+    }
+  }
+
+  if (!filenameTemplateString.endsWith('.md')) {
+    filenameTemplateString += '.md';
+  }
+
+  return filenameTemplateString;
 }
