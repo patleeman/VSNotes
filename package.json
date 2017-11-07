@@ -27,10 +27,60 @@
                     "default": "",
                     "description": "Default location to save notes."
                 },
-                "vsnotes.defaultFilenameFormat": {
+                "vsnotes.tokens": {
+                    "type": "array",
+                    "description": "Tokens used to replace text.",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "description": "Token name"
+                            },
+                            "token": {
+                                "type": "string",
+                                "description": "Token string"
+                            },
+                            "format": {
+                                "type": ["string", null],
+                                "description": "Optional formatting information"
+                            },
+                            "description": {
+                                "type": ["string", null],
+                                "description": "Token description"
+                            }
+                        }
+                    },
+                    "default": [
+                        {
+                            "type": "datetime",
+                            "token": "{dt}",
+                            "format": "YYYY-MM-DD_HH-mm",
+                            "description": "Insert current datetime"
+                        },
+                        {
+                            "type": "title",
+                            "token": "{title}",
+                            "description": "Insert note title",
+                            "format": "Untitled"
+                        },
+                        {
+                            "type": "extension",
+                            "token": "{ext}",
+                            "description": "Insert file extension",
+                            "format": "md"
+                        }
+                    ]
+                },
+                "vsnotes.defaultNoteTitle": {
                     "type": "string",
-                    "default": "{YYYY-MM-DD_HH-mm}_{title}",
-                    "description": "Default filename format. See <documentation> for information. Accepts date time formatting {YYYY-MM-DD_HH-mm}."
+                    "default": "{dt}_{title}.{ext}",
+                    "description": "Default note title utilizing tokens"
+                },
+                "vsnotes.listRecentLimit": {
+                    "type": "number",
+                    "default": 15,
+                    "description": "Number of recent files to show when running command `List Notes`"
                 }
             }
         },
@@ -67,6 +117,7 @@
     },
     "dependencies": {
         "fs-extra": "^4.0.2",
+        "klaw": "^2.1.0",
         "moment": "^2.19.1"
     }
 }

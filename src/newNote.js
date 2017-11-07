@@ -7,10 +7,14 @@ const moment = require('moment');
 // This function handles creation of a new note
 module.exports = function () {
 
-  // Get note folder
+  // Get settings
   const config = vscode.workspace.getConfiguration('vsnotes');
   const noteFolder = config.get('defaultNotePath');
-  const filenameFormat = config.get('defaultFilenameFormat');
+  const defaultNoteTitle = config.get('defaultNoteTitle');
+  const tokens = config.get('tokens');
+  console.log('tokens first', tokens)
+  const titleStart = defaultNoteTitle.indexOf('{title}') || 0;
+  const titleEnd = titleStart + 7 > defaultNoteTitle.length ? defaultNoteTitle.length : titleStart + 7
 
   if (noteFolder == null || !noteFolder) {
     vscode.window.showErrorMessage('Default note folder not found. Please run setup.');
@@ -18,12 +22,10 @@ module.exports = function () {
   }
 
   // Get the name for the note
-  const filename = generateFilename(filenameFormat)
-  const titleIdx = filename.indexOf('{title}')
   const inputBoxPromise = vscode.window.showInputBox({
     prompt: 'Note Title',
-    value: filename,
-    valueSelection: [titleIdx, titleIdx + 7]
+    value: defaultNoteTitle,
+    valueSelection: [titleStart, titleEnd]
   })
 
   inputBoxPromise.then(noteName => {
@@ -32,8 +34,10 @@ module.exports = function () {
       return false
     }
 
+    let fileName = replaceTokens(noteName, tokens);
+
     // Create the file
-    const createFilePromise = createFile(noteFolder, noteName, '')
+    const createFilePromise = createFile(noteFolder, fileName, '')
     createFilePromise.then(filePath => {
       if (typeof filePath !== 'string') {
         console.error('Invalid file path')
@@ -43,7 +47,7 @@ module.exports = function () {
       vscode.window.showTextDocument(vscode.Uri.file(filePath), {
         preserveFocus: false,
         preview: false,
-      }).then(textEditor => {
+      }).then(() => {
         console.log('Text editor created')
       })
     })
@@ -71,23 +75,29 @@ function createFile (folderPath, fileName) {
   });
 }
 
-// Generate a filename from a file name template
-function generateFilename (filenameTemplateString) {
+
+function replaceTokens (tokenString, tokens) {
+  console.log('tokens', tokens)
   const pattern = /(?:\{)(.+?)(?:\})/g;
   var result;
-  while ((result = pattern.exec(filenameTemplateString)) != null) {
-    switch (result[0]) {
-      case '{title}':
-        break;
-      default:
-        const time = moment().format(result[1]);
-        filenameTemplateString = filenameTemplateString.replace(result[0], time);
+  while ((result = pattern.exec(tokenString)) != null) {
+    for (let token of tokens) {
+      // If the token matches
+      console.log(token.token, result[0])
+      if (token.token === result[0]) {
+        switch (token.type) {
+          case "datetime":
+            tokenString = tokenString.replace(result[0], moment().format(token.format));
+            break;
+          case "title":
+            tokenString = tokenString.replace(token.token, token.format)
+            break;
+          case "extension":
+            tokenString = tokenString.replace(token.token, token.format)
+            break;
+        }
+      }
     }
   }
-
-  if (!filenameTemplateString.endsWith('.md')) {
-    filenameTemplateString += '.md';
-  }
-
-  return filenameTemplateString;
+  return tokenString;
 }
