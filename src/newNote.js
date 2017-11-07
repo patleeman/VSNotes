@@ -12,6 +12,7 @@ module.exports = function () {
   const noteFolder = config.get('defaultNotePath');
   const defaultNoteTitle = config.get('defaultNoteTitle');
   const tokens = config.get('tokens');
+  const noteTitleConvertSpaces = config.get('noteTitleConvertSpaces');
 
   if (noteFolder == null || !noteFolder) {
     vscode.window.showErrorMessage('Default note folder not found. Please run setup.');
@@ -32,8 +33,12 @@ module.exports = function () {
 
     let fileName = replaceTokens(defaultNoteTitle, noteName, tokens);
 
+    if (noteTitleConvertSpaces != null) {
+      fileName = fileName.replace(/\s/g, noteTitleConvertSpaces);
+    }
+
     // Create the file
-    const createFilePromise = createFile(noteFolder, fileName, '')
+    const createFilePromise = createFile(noteFolder, fileName, '');
     createFilePromise.then(filePath => {
       if (typeof filePath !== 'string') {
         console.error('Invalid file path')
@@ -44,7 +49,7 @@ module.exports = function () {
         preserveFocus: false,
         preview: false,
       }).then(() => {
-        console.log('Text editor created')
+        console.log('Note created successfully: ', filePath);
       })
     })
 
@@ -73,7 +78,6 @@ function createFile (folderPath, fileName) {
 
 
 function replaceTokens (format, title, tokens) {
-  console.log('replaceTokens', format, title, tokens)
   const pattern = /(?:\{)(.+?)(?:\})/g;
   var result;
   while ((result = pattern.exec(format)) != null) {
@@ -81,22 +85,20 @@ function replaceTokens (format, title, tokens) {
       if (token.token === result[0]) {
         switch (token.type) {
           case "datetime":
-            format = format.replace(result[0], moment().format(token.format));
+            format = format.replace(new RegExp(result[0], 'g'), moment().format(token.format));
             break;
           case "title":
             let prependedPath = ''
             // Check if its a nested path
             const splitTitle = title.split(path.sep);
-            console.log('split title ', splitTitle, path.sep)
             if (splitTitle.length > 1) {
               title = splitTitle[splitTitle.length - 1];
               prependedPath = splitTitle.slice(0,splitTitle.length - 1);
             }
-            format = prependedPath.concat(format.replace(token.token, title)).join(path.sep);
-            console.log(format)
+            format = prependedPath.concat(format.replace(new RegExp(token.token, 'g'), title)).join(path.sep);
             break;
           case "extension":
-            format = format.replace(token.token, token.format)
+            format = format.replace(new RegExp(token.token, 'g'), token.format)
             break;
         }
       }

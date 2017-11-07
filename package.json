@@ -42,11 +42,17 @@
                                 "description": "Token string"
                             },
                             "format": {
-                                "type": ["string", null],
+                                "type": [
+                                    "string",
+                                    null
+                                ],
                                 "description": "Optional formatting information"
                             },
                             "description": {
-                                "type": ["string", null],
+                                "type": [
+                                    "string",
+                                    null
+                                ],
                                 "description": "Token description"
                             }
                         }
@@ -81,6 +87,11 @@
                     "type": "number",
                     "default": 15,
                     "description": "Number of recent files to show when running command `List Notes`"
+                },
+                "vsnotes.noteTitleConvertSpaces": {
+                    "type": "string",
+                    "default": "_",
+                    "description": "Automatically convert spaces in notes titles to symbol. To disable set to `null`"
                 }
             }
         },

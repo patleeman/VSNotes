@@ -1,65 +1,59 @@
-# vsnotes README
+# VS Notes
+Take markdown notes from VS Code quickly and easily.
 
-This is the README for your extension "vsnotes". After writing up a brief description, we recommend including the following sections.
+# Features
+1. Access commands quickly from the VS Code command palette `Ctrl/Cmd + Shift + p`
+2. Set a base folder for your notes and all notes created will be saved in that folder.
 
-## Features
+# Quick Start
+- Install the extension from the VS Code Extension menu.
+- Open the command pallette `Ctrl/Cmd + Shift + p` and type `vsnotes`. Select Run Setup.
+- Select a directory to save notes to.
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+To modify other settings, open the VS Code settings `Preferences > Settings` or hit `Ctrl/Cmd + ,` and type in vsnotes in the search bar. Settings explained below.
 
-For example if there is an image subfolder under your extension project workspace:
+# Taking Notes
 
-\!\[feature X\]\(images/feature-x.png\)
+## Creating a note
+When creating a new note, VS Notes will look at the `vsnotes.defaultNoteTitle` setting to grab the format for the file name. This string contains several tokens that is converted by VS Notes when a note is created. Tokens can be modified in the `vsnotes.tokens` setting. When asked to input a title for your new note, VSNotes can detect file paths and will create folders to store notes inside.
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+### Tokens:
+- datetime: Inserts the current date time in a format specified by the format key. [Formatting](https://momentjs.com/docs/#/displaying/format/)
+    ```
+    {
+        "type": "datetime",
+        "token": "{dt}",
+        "format": "YYYY-MM-DD_HH-mm",
+        "description": "Insert current datetime"
+    }
+    ```
+- title: When you create a new note, VS Notes will ask you for a title for the note. After entering a title, it will replace this token with the input text.
+    ```
+    {
+        "type": "title",
+        "token": "{title}",
+        "description": "Insert note title",
+        "format": "Untitled"
+    },
+    ```
+- extension: The file extension for the file. Defaults to markdown but you can change it to whatever you want.
+    ```
+    {
+        "type": "extension",
+        "token": "{ext}",
+        "description": "Insert file extension",
+        "format": "md"
+    }
+    ```
 
-## Requirements
+### File Path Detection
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+VS Notes understands file paths and will create folders as necessary. When prompted for a note title, inputting a path will nest the new note under the folders designated in the path. All paths are generated from the main notes folder.
 
-## Extension Settings
+i.e. A title separated by a `/` character on macs/linux will generate a meetings folder with a note named my meeting notes within it (formatted as per `vsnotes.defaultNoteTitle`).
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
 
-For example:
 
-This extension contributes the following settings:
 
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
 
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
------------------------------------------------------------------------------------------------------------
-
-## Working with Markdown
-
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on OSX or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on OSX or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (OSX) to see a list of Markdown snippets
-
-### For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+# Settings
