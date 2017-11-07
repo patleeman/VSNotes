@@ -1,14 +1,25 @@
 {
     "name": "vsnotes",
-    "displayName": "VSNotes",
-    "description": "Create markdown notes in a note directory",
-    "version": "0.0.1",
-    "publisher": "PatrickLee",
+    "displayName": "VS Notes",
+    "description": "Turn VS Code into a note taking tool.",
+    "version": "0.1.0",
+    "publisher": "patricklee",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/patleeman/VSNotes.git"
+    },
+    "license": "MIT",
     "engines": {
         "vscode": "^1.17.0"
     },
     "categories": [
         "Other"
+    ],
+    "keywords": [
+        "notes",
+        "note taking",
+        "productivity",
+        "note"
     ],
     "activationEvents": [
         "onCommand:extension.newNote",
