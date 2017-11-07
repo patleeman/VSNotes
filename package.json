@@ -112,6 +112,12 @@
                 "command": "extension.openNoteFolder",
                 "title": "VSNotes: Open Note Folder"
             }
+        ],
+        "snippets": [
+            {
+                "language": "markdown",
+                "path": "./snippets/markdown.json"
+            }
         ]
     },
     "scripts": {

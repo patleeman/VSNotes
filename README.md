@@ -53,7 +53,4 @@ VS Notes understands file paths and will create folders as necessary. When promp
 i.e. A title separated by a `/` character on macs/linux will generate a meetings folder with a note named my meeting notes within it (formatted as per `vsnotes.defaultNoteTitle`).
 
 
-
-
-
 # Settings

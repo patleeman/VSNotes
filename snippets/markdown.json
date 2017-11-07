@@ -1,0 +1,13 @@
+{
+    "Note Template": {
+        "prefix": "template",
+        "body": [
+            "---",
+            "tags:",
+            "  - $1",
+            "---",
+            "$0"
+        ],
+        "description": "VSNotes note template."
+    }
+}

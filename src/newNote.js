@@ -78,14 +78,15 @@ function createFile (folderPath, fileName) {
 
 
 function replaceTokens (format, title, tokens) {
+  let newFormat = format
   const pattern = /(?:\{)(.+?)(?:\})/g;
-  var result;
+  let result;
   while ((result = pattern.exec(format)) != null) {
     for (let token of tokens) {
       if (token.token === result[0]) {
         switch (token.type) {
           case "datetime":
-            format = format.replace(new RegExp(result[0], 'g'), moment().format(token.format));
+            newFormat = newFormat.replace(new RegExp(result[0], 'g'), moment().format(token.format));
             break;
           case "title":
             let prependedPath = [];
@@ -95,15 +96,14 @@ function replaceTokens (format, title, tokens) {
               title = splitTitle[splitTitle.length - 1];
               prependedPath = splitTitle.slice(0,splitTitle.length - 1);
             }
-            format = prependedPath.concat(format.replace(new RegExp(token.token, 'g'), title)).join(path.sep);
+            newFormat = prependedPath.concat(newFormat.replace(new RegExp(token.token, 'g'), title)).join(path.sep);
             break;
           case "extension":
-            format = format.replace(new RegExp(token.token, 'g'), token.format)
+            newFormat = newFormat.replace(new RegExp(token.token, 'g'), token.format)
             break;
         }
       }
     }
   }
-  console.log('final format ', format)
-  return format;
+  return newFormat;
 }
