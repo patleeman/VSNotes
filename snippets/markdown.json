@@ -1,6 +1,6 @@
 {
-    "Note Template": {
-        "prefix": "template",
+    "VS Notes": {
+        "prefix": "vsnotes",
         "body": [
             "---",
             "tags:",

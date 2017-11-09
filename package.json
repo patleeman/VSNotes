@@ -16,6 +16,7 @@
         "Other"
     ],
     "keywords": [
+        "vsnotes",
         "notes",
         "note taking",
         "productivity",
@@ -24,6 +25,7 @@
     "activationEvents": [
         "onCommand:extension.newNote",
         "onCommand:extension.listNotes",
+        "onCommand:extension.listTags",
         "onCommand:extension.setupNotes",
         "onCommand:extension.openNoteFolder"
     ],
@@ -116,12 +118,16 @@
                 "title": "VSNotes: List recent notes"
             },
             {
-                "command": "extension.setupNotes",
-                "title": "VSNotes: Run setup"
+                "command": "extension.listTags",
+                "title": "VSNotes: List tags"
             },
             {
                 "command": "extension.openNoteFolder",
                 "title": "VSNotes: Open Note Folder"
+            },
+            {
+                "command": "extension.setupNotes",
+                "title": "VSNotes: Run setup"
             }
         ],
         "snippets": [
@@ -145,6 +151,7 @@
     },
     "dependencies": {
         "fs-extra": "^4.0.2",
+        "gray-matter": "^3.1.1",
         "klaw": "^2.1.0",
         "moment": "^2.19.1"
     }

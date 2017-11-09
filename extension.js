@@ -1,8 +1,9 @@
 const vscode = require('vscode');
 
-const newNote = require('./src/newNote.js');
-const listNotes = require('./src/listNotes.js');
-const setupNotes = require('./src/setupNotes.js');
+const newNote = require('./src/newNote');
+const listNotes = require('./src/listNotes');
+const listTags = require('./src/listTags')
+const setupNotes = require('./src/setupNotes');
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -15,6 +16,10 @@ function activate(context) {
     // List recent notes in notes folder
     let listNotesDisposable = vscode.commands.registerCommand('extension.listNotes', listNotes);
     context.subscriptions.push(listNotesDisposable);
+
+    // List tags
+    let listTagsDisposable = vscode.commands.registerCommand('extension.listTags', listTags);
+    context.subscriptions.push(listTagsDisposable);
 
     // Run setup
     let setupDisposable = vscode.commands.registerCommand('extension.setupNotes', setupNotes);
