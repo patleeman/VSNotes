@@ -3,7 +3,9 @@ A simple tool that takes care of the creation and management of plain text notes
 
 ![](https://github.com/patleeman/VSNotes/raw/master/img/vsnotes_commands.png)
 
-# Demo
+# Demo Video
+
+Click image to watch 1 min demo video.
 
 [![](https://i3.ytimg.com/vi/Kcf4rpRDmlQ/maxresdefault.jpg)](https://www.youtube.com/watch?v=Kcf4rpRDmlQ)
 
