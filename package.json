@@ -2,7 +2,7 @@
     "name": "vsnotes",
     "displayName": "VS Notes",
     "description": "Turn VS Code into a note taking tool.",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "publisher": "patricklee",
     "repository": {
         "type": "git",
