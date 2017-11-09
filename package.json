@@ -105,13 +105,31 @@
                     "type": "string",
                     "default": "_",
                     "description": "Automatically convert spaces in notes titles to symbol. To disable set to `null`"
+                },
+                "vsnotes.defaultSnippet": {
+                    "type": "object",
+                    "properties": {
+                        "langId": {
+                            "type": "string",
+                            "description": "VS Code language identifier"
+                        },
+                        "name": {
+                            "type": "string",
+                            "description": "Snippet Name"
+                        }
+                    },
+                    "default": {
+                        "langId": "markdown",
+                        "name": "vsnotes"
+                    },
+                    "description": "Default snippet to execute after creating a note. Set both to null to disable"
                 }
             }
         },
         "commands": [
             {
                 "command": "extension.newNote",
-                "title": "VSNotes: New Note"
+                "title": "VSNotes: Create New Note"
             },
             {
                 "command": "extension.listNotes",
