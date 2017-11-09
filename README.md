@@ -3,6 +3,10 @@ A simple tool that takes care of the creation and management of plain text notes
 
 ![](https://github.com/patleeman/VSNotes/raw/master/img/vsnotes_commands.png)
 
+# Demo
+
+[![](https://i3.ytimg.com/vi/Kcf4rpRDmlQ/maxresdefault.jpg)](https://www.youtube.com/watch?v=Kcf4rpRDmlQ)
+
 # Repository
 [VS Notes is MIT Licensed and available on Github](https://github.com/patleeman/VSNotes)
 
