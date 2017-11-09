@@ -12,6 +12,8 @@ module.exports = function () {
   const noteFolder = config.get('defaultNotePath');
   const defaultNoteTitle = config.get('defaultNoteTitle');
   const tokens = config.get('tokens');
+  const snippetLangId = config.get('defaultSnippet.langId');
+  const snippetName = config.get('defaultSnippet.name');
   const noteTitleConvertSpaces = config.get('noteTitleConvertSpaces');
 
   if (noteFolder == null || !noteFolder) {
@@ -50,6 +52,14 @@ module.exports = function () {
         preview: false,
       }).then(() => {
         console.log('Note created successfully: ', filePath);
+        // Insert the default note text
+        if (snippetLangId != null && snippetName != null) {
+          vscode.commands.executeCommand('editor.action.insertSnippet', ...[{ langId: snippetLangId, name: snippetName }]).then(res => {
+            console.log(res)
+          }, err => {
+            console.error(err)
+          })
+        }
       })
     })
 
