@@ -1,6 +1,6 @@
 {
     "name": "vsnotes",
-    "displayName": "VS Notes",
+    "displayName": "VSNotes",
     "description": "Turn VS Code into a note taking tool.",
     "version": "0.2.0",
     "publisher": "patricklee",
@@ -20,7 +20,9 @@
         "notes",
         "note taking",
         "productivity",
-        "note"
+        "note",
+        "markdown",
+        "plain text"
     ],
     "activationEvents": [
         "onCommand:extension.newNote",
