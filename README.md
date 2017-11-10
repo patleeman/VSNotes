@@ -5,7 +5,7 @@ A simple tool that takes care of the creation and management of plain text notes
 
 # Demo Video
 
-Click image to watch 1 min demo video.
+[Click to watch 1 min demo video.](https://www.youtube.com/watch?v=Kcf4rpRDmlQ)
 
 [![](https://i3.ytimg.com/vi/Kcf4rpRDmlQ/maxresdefault.jpg)](https://www.youtube.com/watch?v=Kcf4rpRDmlQ)
 
@@ -20,6 +20,10 @@ Click image to watch 1 min demo video.
 5. Open your note folder in a new window.
 
 # Quick Start
+[Hit install on this page.](https://www.youtube.com/watch?v=Kcf4rpRDmlQ)
+
+or
+
 - Install the extension from the VS Code Extension menu.
 - Open the command palette `Ctrl/Cmd + Shift + p` and type `vsnotes`. Select Run Setup.
 - Click start and then select a directory to save your notes to.
@@ -173,3 +177,7 @@ Available settings
 # Contributing
 
 [See CONTRIBUTING.md](./CONTRIBUTING.md)
+
+# Reviews
+
+[Do you like VS Notes? Leave a review.](https://marketplace.visualstudio.com/items?itemName=patricklee.vsnotes#review-details)
