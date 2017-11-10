@@ -10,7 +10,12 @@ class VSNotesTreeView  {
     const config = vscode.workspace.getConfiguration('vsnotes');
     this.baseDir = config.get('defaultNotePath');
 
-    console.log('setup complete')
+    this._onDidChangeTreeData = new vscode.EventEmitter();
+    this.onDidChangeTreeData = this._onDidChangeTreeData.event;
+  }
+
+  refresh () {
+    this._onDidChangeTreeData.fire();
   }
 
   getChildren (node) {
@@ -31,10 +36,10 @@ class VSNotesTreeView  {
     } else {
       return [
         {
-          type: 'rootTag'
+          type: 'rootFile'
         },
         {
-          type: 'rootFile'
+          type: 'rootTag'
         }
       ];
     }
@@ -50,7 +55,14 @@ class VSNotesTreeView  {
         return new vscode.TreeItem(node.tag, vscode.TreeItemCollapsibleState.Collapsed);
       case 'file':
         const state = node.stats.isDirectory() ? vscode.TreeItemCollapsibleState.Collapsed : vscode.TreeItemCollapsibleState.None
-        return new vscode.TreeItem(node.file, state)
+        const treeItem = new vscode.TreeItem(node.file, state)
+        console.log('file node', node)
+        treeItem.command = {
+          command: 'vscode.open',
+          title: '',
+          arguments: [vscode.Uri.file(node.path)]
+        }
+        return treeItem;
     }
   }
 

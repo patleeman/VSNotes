@@ -12,6 +12,9 @@ function activate(context) {
     const tv = new VSNotesTreeView()
     vscode.window.registerTreeDataProvider('vsnotes', tv);
 
+    // Refresh View
+    vscode.commands.registerCommand('extension.refreshVSNotesView', () => tv.refresh());
+
     // Create a new note
     let newNoteDisposable = vscode.commands.registerCommand('extension.newNote', newNote);
     context.subscriptions.push(newNoteDisposable);

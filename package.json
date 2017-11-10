@@ -149,6 +149,10 @@
             {
                 "command": "extension.setupNotes",
                 "title": "VSNotes: Run setup"
+            },
+            {
+                "command": "extension.refreshVSNotesView",
+                "title": "refresh"
             }
         ],
         "snippets": [
@@ -162,6 +166,19 @@
                 {
                     "id": "vsnotes",
                     "name": "VS Notes"
+                }
+            ]
+        },
+        "menus": {
+            "view/title": [
+                {
+                    "command": "extension.refreshVSNotesView",
+                    "when": "view == vsnotes",
+                    "group": "navigation",
+                    "icon": {
+                        "light": "",
+                        "dark": ""
+                    }
                 }
             ]
         }
