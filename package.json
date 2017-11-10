@@ -29,7 +29,8 @@
         "onCommand:extension.listNotes",
         "onCommand:extension.listTags",
         "onCommand:extension.setupNotes",
-        "onCommand:extension.openNoteFolder"
+        "onCommand:extension.openNoteFolder",
+        "onView:vsnotes"
     ],
     "main": "./extension",
     "contributes": {
@@ -155,7 +156,15 @@
                 "language": "markdown",
                 "path": "./snippets/markdown.json"
             }
-        ]
+        ],
+        "views": {
+            "explorer": [
+                {
+                    "id": "vsnotes",
+                    "name": "VS Notes"
+                }
+            ]
+        }
     },
     "scripts": {
         "postinstall": "node ./node_modules/vscode/bin/install",

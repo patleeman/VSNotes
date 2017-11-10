@@ -4,10 +4,13 @@ const newNote = require('./src/newNote');
 const listNotes = require('./src/listNotes');
 const listTags = require('./src/listTags')
 const setupNotes = require('./src/setupNotes');
+const VSNotesTreeView = require('./src/treeView');
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 function activate(context) {
+    const tv = new VSNotesTreeView()
+    vscode.window.registerTreeDataProvider('vsnotes', tv);
 
     // Create a new note
     let newNoteDisposable = vscode.commands.registerCommand('extension.newNote', newNote);
@@ -31,6 +34,7 @@ function activate(context) {
       return vscode.commands.executeCommand('vscode.openFolder', uri);
     })
     context.subscriptions.push(openNoteFolderDisposable);
+
 }
 exports.activate = activate;
 
