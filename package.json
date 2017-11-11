@@ -126,6 +126,16 @@
                         "name": "vsnotes"
                     },
                     "description": "Default snippet to execute after creating a note. Set both to null to disable"
+                },
+                "vsnotes.ignorePatterns": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "default": [
+                        "^\\."
+                    ],
+                    "description": "Regular expressions used to ignore file names"
                 }
             }
         },

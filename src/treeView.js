@@ -9,6 +9,9 @@ class VSNotesTreeView  {
   constructor () {
     const config = vscode.workspace.getConfiguration('vsnotes');
     this.baseDir = config.get('defaultNotePath');
+    this.ignorePattern = new RegExp(config.get('ignorePatterns')
+      .map(function (pattern) {return '(' + pattern + ')'})
+      .join('|'));
 
     this._onDidChangeTreeData = new vscode.EventEmitter();
     this.onDidChangeTreeData = this._onDidChangeTreeData.event;
@@ -20,7 +23,6 @@ class VSNotesTreeView  {
 
   getChildren (node) {
     if (node) {
-      console.log('node', node)
       switch (node.type) {
         case 'rootTag':
           this.tags = Promise.resolve(this._getTags(this.baseDir))
@@ -56,7 +58,6 @@ class VSNotesTreeView  {
       case 'file':
         const state = node.stats.isDirectory() ? vscode.TreeItemCollapsibleState.Collapsed : vscode.TreeItemCollapsibleState.None
         const treeItem = new vscode.TreeItem(node.file, state)
-        console.log('file node', node)
         treeItem.command = {
           command: 'vscode.open',
           title: '',
@@ -72,16 +73,17 @@ class VSNotesTreeView  {
       fs.readdir(filePath).then(files => {
         let items = [];
         files.forEach(file => {
-          if (!file.startsWith('.')) {
-            const fileStats = fs.statSync(path.join(filePath, file));
+
+          if (!this.ignorePattern.test(file)) {
+            console.log(file, this.ignorePattern.test(file))
             items.push({
               type: 'file',
               file: file,
               path: path.join(filePath, file),
-              stats: fileStats
+              stats: fs.statSync(path.join(filePath, file))
             });
           }
-        })
+        });
         console.log('items', items)
         resolve(items);
       }).catch(err => {
@@ -96,28 +98,31 @@ class VSNotesTreeView  {
 
       klaw(this.baseDir)
         .on('data', item => {
-          fs.readFile(item.path).then(fileContents => {
-            const parsedFrontMatter = matter(fileContents)
-            if ('tags' in parsedFrontMatter.data) {
-              for (let tag of parsedFrontMatter.data.tags) {
+          const fileName = path.basename(item.path);
+          if (!this.ignorePattern.test(fileName)) {
+            fs.readFile(item.path).then(fileContents => {
+              const parsedFrontMatter = matter(fileContents)
+              if ('tags' in parsedFrontMatter.data) {
+                for (let tag of parsedFrontMatter.data.tags) {
 
-                const payload = {
-                  type: 'file',
-                  file: path.basename(item.path),
-                  path: item.path,
-                  stats: fs.statSync(item.path)
-                }
+                  const payload = {
+                    type: 'file',
+                    file: fileName,
+                    path: item.path,
+                    stats: fs.statSync(item.path)
+                  }
 
-                if (tag in tagIndex) {
-                  tagIndex[tag].push(payload)
-                } else {
-                  tagIndex[tag] = [payload]
+                  if (tag in tagIndex) {
+                    tagIndex[tag].push(payload)
+                  } else {
+                    tagIndex[tag] = [payload]
+                  }
                 }
               }
-            }
-          }).catch(err => {
-            console.error(err)
-          })
+            }).catch(err => {
+              console.error(err)
+            })
+          }
         })
         .on('error', (err, item) => {
           reject(err)

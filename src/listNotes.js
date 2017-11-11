@@ -8,13 +8,16 @@ module.exports = function () {
   const config = vscode.workspace.getConfiguration('vsnotes');
   const noteFolder = config.get('defaultNotePath');
   const listRecentLimit = config.get('listRecentLimit');
+  const ignorePattern = new RegExp(config.get('ignorePatterns')
+    .map(function (pattern) { return '(' + pattern + ')' })
+    .join('|'));
   const noteFolderLen = noteFolder.length;
   let files = [];
 
   // Using klaw, recursively iterate through notes directory.
   klaw(noteFolder)
     .on('data', item => {
-      if (item.path.toLowerCase().endsWith('.md')) {
+      if (!ignorePattern.test(item)) {
         files.push(item);
       }
     })

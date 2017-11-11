@@ -7,7 +7,10 @@ const matter = require('gray-matter');
 module.exports = function () {
   const config = vscode.workspace.getConfiguration('vsnotes');
   const noteFolder = config.get('defaultNotePath');
+
   const noteFolderLen = noteFolder.length;
+
+
   createTagIndex(noteFolder).then(tags => {
     vscode.window.showQuickPick(Object.keys(tags)).then(tag => {
       if (tag != null) {
@@ -38,25 +41,32 @@ module.exports = function () {
 // Given a folder path, traverse and find all markdown files.
 // Open and grab tags from front matter.
 function createTagIndex(noteFolderPath) {
+  const config = vscode.workspace.getConfiguration('vsnotes');
+  const ignorePattern = new RegExp(config.get('ignorePatterns')
+    .map(function (pattern) { return '(' + pattern + ')' })
+    .join('|'));
   return new Promise((resolve, reject) => {
     let tagIndex = {}
 
     klaw(noteFolderPath)
       .on('data', item => {
-        fs.readFile(item.path).then(fileContents => {
-          const parsedFrontMatter = matter(fileContents)
-          if ('tags' in parsedFrontMatter.data) {
-            for (let tag of parsedFrontMatter.data.tags) {
-              if (tag in tagIndex) {
-                tagIndex[tag].push(item.path)
-              } else {
-                tagIndex[tag] = [item.path]
+        const fileName = path.basename(item.path);
+        if (!ignorePattern.test(fileName)) {
+          fs.readFile(item.path).then(fileContents => {
+            const parsedFrontMatter = matter(fileContents)
+            if ('tags' in parsedFrontMatter.data) {
+              for (let tag of parsedFrontMatter.data.tags) {
+                if (tag in tagIndex) {
+                  tagIndex[tag].push(item.path);
+                } else {
+                  tagIndex[tag] = [item.path];
+                }
               }
             }
-          }
-        }).catch(err => {
-          console.error(err)
-        })
+          }).catch(err => {
+            console.error(err);
+          })
+        }
       })
       .on('error', (err, item) => {
         reject(err)
