@@ -162,7 +162,11 @@
             },
             {
                 "command": "extension.refreshVSNotesView",
-                "title": "refresh"
+                "title": "refresh",
+                "icon": {
+                    "light": "./media/light/sync.svg",
+                    "dark": "./media/dark/sync.svg"
+                }
             }
         ],
         "snippets": [
@@ -184,11 +188,7 @@
                 {
                     "command": "extension.refreshVSNotesView",
                     "when": "view == vsnotes",
-                    "group": "navigation",
-                    "icon": {
-                        "light": "",
-                        "dark": ""
-                    }
+                    "group": "navigation"
                 }
             ]
         }

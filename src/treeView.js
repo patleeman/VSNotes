@@ -50,20 +50,48 @@ class VSNotesTreeView  {
   getTreeItem (node) {
     switch (node.type) {
       case 'rootTag':
-        return new vscode.TreeItem('Tags', vscode.TreeItemCollapsibleState.Collapsed);
+        let rootTagTreeItem = new vscode.TreeItem('Tags', vscode.TreeItemCollapsibleState.Collapsed);
+        rootTagTreeItem.iconPath = {
+          light: path.join(__filename, '..', '..', 'media', 'light', 'tag.svg'),
+          dark: path.join(__filename, '..', '..', 'media', 'dark', 'tag.svg')
+        };
+        console.log(rootTagTreeItem.iconPath)
+        return rootTagTreeItem;
       case 'rootFile':
-        return new vscode.TreeItem('Files', vscode.TreeItemCollapsibleState.Collapsed);
+        let rootFileTreeItem = new vscode.TreeItem('Files', vscode.TreeItemCollapsibleState.Collapsed);
+        rootFileTreeItem.iconPath = {
+          light: path.join(__filename, '..', '..', 'media', 'light', 'file-directory.svg'),
+          dark: path.join(__filename, '..', '..', 'media', 'dark', 'file-directory.svg')
+        };
+        return rootFileTreeItem;
       case 'tag':
-        return new vscode.TreeItem(node.tag, vscode.TreeItemCollapsibleState.Collapsed);
+        let tagTreeItem = new vscode.TreeItem(node.tag, vscode.TreeItemCollapsibleState.Collapsed);
+        tagTreeItem.iconPath = {
+          light: path.join(__filename, '..', '..', 'media', 'light', 'tag.svg'),
+          dark: path.join(__filename, '..', '..', 'media', 'dark', 'tag.svg')
+        };
+        return tagTreeItem;
       case 'file':
-        const state = node.stats.isDirectory() ? vscode.TreeItemCollapsibleState.Collapsed : vscode.TreeItemCollapsibleState.None
-        const treeItem = new vscode.TreeItem(node.file, state)
-        treeItem.command = {
+        const isDir = node.stats.isDirectory()
+        const state = isDir ? vscode.TreeItemCollapsibleState.Collapsed : vscode.TreeItemCollapsibleState.None;
+        let fileTreeItem = new vscode.TreeItem(node.file, state)
+        fileTreeItem.command = {
           command: 'vscode.open',
           title: '',
           arguments: [vscode.Uri.file(node.path)]
         }
-        return treeItem;
+        if (isDir) {
+          fileTreeItem.iconPath = {
+            light: path.join(__filename, '..', '..', 'media', 'light', 'file-directory.svg'),
+            dark: path.join(__filename, '..', '..', 'media', 'dark', 'file-directory.svg')
+          };
+        } else {
+          fileTreeItem.iconPath = {
+            light: path.join(__filename, '..', '..', 'media', 'light', 'file.svg'),
+            dark: path.join(__filename, '..', '..', 'media', 'dark', 'file.svg')
+          };
+        }
+        return fileTreeItem;
     }
   }
 
