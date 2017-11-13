@@ -20,11 +20,8 @@ A simple tool that takes care of the creation and management of plain text notes
 5. Open your note folder in a new window.
 
 # Quick Start
-[Hit install on this page.](https://www.youtube.com/watch?v=Kcf4rpRDmlQ)
 
-or
-
-- Install the extension from the VS Code Extension menu.
+- Install the extension from the VS Code Extension menu or [click install on this page.](https://www.youtube.com/watch?v=Kcf4rpRDmlQ).
 - Open the command palette `Ctrl/Cmd + Shift + p` and type `vsnotes`. Select Run Setup.
 - Click start and then select a directory to save your notes to.
 
@@ -129,7 +126,7 @@ Access your notes no matter what you're doing. This new treeview adds a quick wa
 Available settings
 
 ```
-// Default location to save notes.
+  // Default location to save notes.
   "vsnotes.defaultNotePath": "",
 
   // Tokens used to replace text.
@@ -168,6 +165,12 @@ Available settings
     "langId": "markdown",
     "name": "vsnotes"
   },
+
+  // Regular expressions used to ignore file names
+  "vsnotes.ignorePatterns": [
+    "^\\."
+  ],
+
 ```
 
 # Tips and tricks
