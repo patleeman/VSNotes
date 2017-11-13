@@ -3,6 +3,10 @@ All notable changes to the "vsnotes" extension will be documented in this file.
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.3.1] - 2017-11-13
+### Added
+- Icon
+
 ## [0.3.0] - 2017-11-13
 ### Added
 - Explorer tree view. 0.3.0 adds a tree view to the explorer (left sidebar) that displays tags and files inside the note directory.
