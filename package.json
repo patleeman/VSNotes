@@ -20,9 +20,7 @@
         "notes",
         "note taking",
         "productivity",
-        "note",
-        "markdown",
-        "plain text"
+        "note"
     ],
     "activationEvents": [
         "onCommand:extension.newNote",
