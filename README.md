@@ -118,6 +118,13 @@ tags:
 ...
 ```
 
+### Explorer View
+![](https://github.com/patleeman/VSNotes/raw/master/img/vsnotes_view.png)
+
+New in 0.3.0 - VS Notes adds a tree view to the explorer.
+
+Access your notes no matter what you're doing. This new treeview adds a quick way to access your tags or files.
+
 # Settings
 Available settings
 
