@@ -18,6 +18,7 @@ A simple tool that takes care of the creation and management of plain text notes
 3. Easily access latest notes with `List Recent Notes` command.
 4. Retrieve notes via tags in YAML encoded frontmatter on your notes.
 5. Open your note folder in a new window.
+6. View your notes and tags in your filebar.
 
 # Quick Start
 [Hit install on this page.](https://www.youtube.com/watch?v=Kcf4rpRDmlQ)
@@ -123,7 +124,7 @@ tags:
 
 New in 0.3.0 - VS Notes adds a tree view to the explorer.
 
-Access your notes no matter what you're doing. This new treeview adds a quick way to access your tags or files.
+Access your notes no matter what you're doing. This new treeview adds a quick way to access your tags or files at any time.
 
 # Settings
 Available settings
