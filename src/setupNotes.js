@@ -18,9 +18,9 @@ module.exports = function () {
       });
 
       uriPromise.then(res => {
-        if (res.length > 0 && res[0].path) {
+        if (res.length > 0 && res[0].fsPath) {
           const noteFolder = vscode.workspace.getConfiguration('vsnotes');
-          const update = noteFolder.update('defaultNotePath', path.normalize(res[0].path), true);
+          const update = noteFolder.update('defaultNotePath', path.normalize(res[0].fsPath), true);
           update.then(() => {
             vscode.window.showInformationMessage('Note Path Saved. Edit the location by re-running setup or editing the path in VS Code Settings.');
           });
