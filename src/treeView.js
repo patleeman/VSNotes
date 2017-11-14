@@ -28,7 +28,6 @@ class VSNotesTreeView  {
           this.tags = Promise.resolve(this._getTags(this.baseDir))
           return this.tags;
         case 'tag':
-          console.log('tag', node)
           return node.files;
         case 'rootFile':
           return Promise.resolve(this._getDirectoryContents(this.baseDir));
@@ -55,7 +54,6 @@ class VSNotesTreeView  {
           light: path.join(__filename, '..', '..', 'media', 'light', 'tag.svg'),
           dark: path.join(__filename, '..', '..', 'media', 'dark', 'tag.svg')
         };
-        console.log(rootTagTreeItem.iconPath)
         return rootTagTreeItem;
       case 'rootFile':
         let rootFileTreeItem = new vscode.TreeItem('Files', vscode.TreeItemCollapsibleState.Collapsed);
@@ -103,7 +101,6 @@ class VSNotesTreeView  {
         files.forEach(file => {
 
           if (!this.ignorePattern.test(file)) {
-            console.log(file, this.ignorePattern.test(file))
             items.push({
               type: 'file',
               file: file,
@@ -112,7 +109,6 @@ class VSNotesTreeView  {
             });
           }
         });
-        console.log('items', items)
         resolve(items);
       }).catch(err => {
         reject(err);

@@ -29,7 +29,7 @@
         "onCommand:extension.listTags",
         "onCommand:extension.setupNotes",
         "onCommand:extension.openNoteFolder",
-        "onCommand:extension.extension.commitPush",
+        "onCommand:extension.commitPush",
         "onView:vsnotes"
     ],
     "main": "./extension",
@@ -136,6 +136,16 @@
                         "^\\."
                     ],
                     "description": "Regular expressions for file names to ignore when parsing documents in note folder"
+                },
+                "vsnotes.commitPushShellCommand": {
+                    "type": "string",
+                    "default": "git add -A && git commit -m '{msg}' && git push",
+                    "description": "Shell command to execute in the note directory when the Commit and Push command is executed. The {msg} token will be replaced with the contents of an input box shown or, if empty, the default commit message."
+                },
+                "vsnotes.commitPushDefaultCommitMessage": {
+                    "type": "string",
+                    "default": "VS Notes Commit and Push",
+                    "description": "The default commit message used if none is provided with the Commit and Push command"
                 }
             }
         },
