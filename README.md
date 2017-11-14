@@ -17,6 +17,7 @@ VS Notes is a simple tool that takes care of the creation and management of plai
         - [Snippets](#snippets)
         - [Tags](#tags)
         - [Explorer View](#explorer-view)
+        - [Commit and Push](#commit-and-push)
 - [Settings](#settings)
 - [Tips and tricks](#tips-and-tricks)
 - [Roadmap & Features](#roadmap-features)
@@ -43,6 +44,7 @@ VS Notes is a simple tool that takes care of the creation and management of plai
 5. Open your note folder in a new window.
 6. View your notes and tags in your filebar.
 7. Automatically insert a VS Code snippet upon creation of a new note.
+8. Commit and push to your upstream repository with a single command.
 
 # Quick Start
 
@@ -152,25 +154,33 @@ VS Notes ships with a default YAML encoded snippet that it will insert on creati
 
 Access your notes no matter what you're doing. This new treeview adds a quick way to access your tags or files at any time by placing a small window in your explorer (file bar) that displays your tags and the contents of your note folder. Now you don't have to navigate away from a project or open a new window to reference your notes. Quick and easy.
 
+### Commit and Push
+
+[New in 0.4.0] The Commit and Push command is a simple way to add all changes, commit, and push your changes if a version control system like Git is set up in your notes folder. The default command is set up for *nix style systems and requires the git command be accessible.
+
+To customize the command and the default command and commit message, update the settings: `vsnotes.commitPushShellCommand` and `vsnotes.commitPushDefaultCommitMessage`.
+
+Note that this has not been tested on windows machines and may not work without modifying the command. Please test before using.
+
 # Settings
 Available settings
 
 ```
-  // Default location to save notes.
+ // Path to directory to save notes.
   "vsnotes.defaultNotePath": "",
 
-  // Tokens used to replace text.
+  // Tokens used to replace text in file name.
   "vsnotes.tokens": [
     {
       "type": "datetime",
       "token": "{dt}",
       "format": "YYYY-MM-DD_HH-mm",
-      "description": "Insert current datetime"
+      "description": "Insert formatted datetime"
     },
     {
       "type": "title",
       "token": "{title}",
-      "description": "Insert note title",
+      "description": "Insert note title from input box",
       "format": "Untitled"
     },
     {
@@ -181,26 +191,31 @@ Available settings
     }
   ],
 
-  // Default note title utilizing tokens
+  // Default note title. Utilizes tokens set in vsnotes.tokens
   "vsnotes.defaultNoteTitle": "{dt}_{title}.{ext}",
 
   // Number of recent files to show when running command `List Notes`
   "vsnotes.listRecentLimit": 15,
 
-  // Automatically convert spaces in notes titles to symbol. To disable set to `null`
+  // Automatically convert blank spaces in title to character. To disable set to `null`
   "vsnotes.noteTitleConvertSpaces": "_",
 
-  // Default snippet to execute after creating a note. Set both to null to disable
+  // Default vscode snippet to execute after creating a note. Set both langId and name to null to disable
   "vsnotes.defaultSnippet": {
     "langId": "markdown",
     "name": "vsnotes"
   },
 
-  // Regular expressions used to ignore file names
+  // Regular expressions for file names to ignore when parsing documents in note folder
   "vsnotes.ignorePatterns": [
     "^\\."
   ],
 
+  // Shell command to execute in the note directory when the Commit and Push command is executed. The {msg} token will be replaced with the contents of an input box shown or, if empty, the default commit message.
+  "vsnotes.commitPushShellCommand": "git add -A && git commit -m '{msg}' && git push",
+
+  // The default commit message used if none is provided with the Commit and Push command
+  "vsnotes.commitPushDefaultCommitMessage": "VS Notes Commit and Push",
 ```
 
 # Tips and tricks

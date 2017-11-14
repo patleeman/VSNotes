@@ -2,7 +2,7 @@
     "name": "vsnotes",
     "displayName": "VSNotes",
     "description": "Simple VS Code extension for plain text note taking.",
-    "version": "0.3.2",
+    "version": "0.4.0",
     "publisher": "patricklee",
     "repository": {
         "type": "git",
