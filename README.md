@@ -1,4 +1,4 @@
-VS NOTES
+# VS NOTES
 
 VS Notes is a simple tool that takes care of the creation and management of plain text notes and harnesses the power of VS Code via the Command Palette.
 
