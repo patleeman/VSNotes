@@ -5,6 +5,7 @@ const listNotes = require('./src/listNotes');
 const listTags = require('./src/listTags')
 const setupNotes = require('./src/setupNotes');
 const VSNotesTreeView = require('./src/treeView');
+const commitPush = require('./src/commitPush');
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -30,6 +31,9 @@ function activate(context) {
     // Run setup
     let setupDisposable = vscode.commands.registerCommand('extension.setupNotes', setupNotes);
     context.subscriptions.push(setupDisposable);
+
+    let commitPushDisposable = vscode.commands.registerCommand('extension.commitPush', commitPush);
+    context.subscriptions.push(commitPushDisposable);
 
     // Open note folder in new workspace
     let openNoteFolderDisposable = vscode.commands.registerCommand('extension.openNoteFolder', () => {

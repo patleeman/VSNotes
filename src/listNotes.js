@@ -2,7 +2,6 @@
 const vscode = require('vscode');
 const klaw = require('klaw');
 const path = require('path');
-const moment = require('moment');
 
 module.exports = function () {
   const config = vscode.workspace.getConfiguration('vsnotes');

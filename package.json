@@ -29,6 +29,7 @@
         "onCommand:extension.listTags",
         "onCommand:extension.setupNotes",
         "onCommand:extension.openNoteFolder",
+        "onCommand:extension.extension.commitPush",
         "onView:vsnotes"
     ],
     "main": "./extension",
@@ -158,6 +159,10 @@
             {
                 "command": "extension.setupNotes",
                 "title": "VSNotes: Run setup"
+            },
+            {
+                "command": "extension.commitPush",
+                "title": "VSNotes: Commit and Push"
             },
             {
                 "command": "extension.refreshVSNotesView",
