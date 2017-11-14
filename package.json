@@ -1,8 +1,8 @@
 {
     "name": "vsnotes",
     "displayName": "VSNotes",
-    "description": "Turn VS Code into a note taking tool.",
-    "version": "0.3.1",
+    "description": "Simple VS Code extension for plain text note taking.",
+    "version": "0.3.2",
     "publisher": "patricklee",
     "repository": {
         "type": "git",
@@ -41,11 +41,11 @@
                 "vsnotes.defaultNotePath": {
                     "type": "string",
                     "default": "",
-                    "description": "Default location to save notes."
+                    "description": "Path to directory to save notes."
                 },
                 "vsnotes.tokens": {
                     "type": "array",
-                    "description": "Tokens used to replace text.",
+                    "description": "Tokens used to replace text in file name.",
                     "items": {
                         "type": "object",
                         "properties": {
@@ -78,12 +78,12 @@
                             "type": "datetime",
                             "token": "{dt}",
                             "format": "YYYY-MM-DD_HH-mm",
-                            "description": "Insert current datetime"
+                            "description": "Insert formatted datetime"
                         },
                         {
                             "type": "title",
                             "token": "{title}",
-                            "description": "Insert note title",
+                            "description": "Insert note title from input box",
                             "format": "Untitled"
                         },
                         {
@@ -97,7 +97,7 @@
                 "vsnotes.defaultNoteTitle": {
                     "type": "string",
                     "default": "{dt}_{title}.{ext}",
-                    "description": "Default note title utilizing tokens"
+                    "description": "Default note title. Utilizes tokens set in vsnotes.tokens"
                 },
                 "vsnotes.listRecentLimit": {
                     "type": "number",
@@ -107,7 +107,7 @@
                 "vsnotes.noteTitleConvertSpaces": {
                     "type": "string",
                     "default": "_",
-                    "description": "Automatically convert spaces in notes titles to symbol. To disable set to `null`"
+                    "description": "Automatically convert blank spaces in title to character. To disable set to `null`"
                 },
                 "vsnotes.defaultSnippet": {
                     "type": "object",
@@ -125,7 +125,7 @@
                         "langId": "markdown",
                         "name": "vsnotes"
                     },
-                    "description": "Default snippet to execute after creating a note. Set both to null to disable"
+                    "description": "Default vscode snippet to execute after creating a note. Set both langId and name to null to disable"
                 },
                 "vsnotes.ignorePatterns": {
                     "type": "array",
@@ -135,7 +135,7 @@
                     "default": [
                         "^\\."
                     ],
-                    "description": "Regular expressions used to ignore file names"
+                    "description": "Regular expressions for file names to ignore when parsing documents in note folder"
                 }
             }
         },

@@ -1,7 +1,32 @@
-# VS Notes
-A simple tool that takes care of the creation and management of plain text notes and harnesses the power of VS Code via the Command Palette.
+VS NOTES
+---
+
+VS Notes is a simple tool that takes care of the creation and management of plain text notes and harnesses the power of VS Code via the Command Palette.
 
 ![](https://github.com/patleeman/VSNotes/raw/master/img/vsnotes_commands.png)
+
+<!-- TOC -->
+
+    - [VS NOTES](#vs-notes)
+- [Demo Video](#demo-video)
+- [Repository](#repository)
+- [Features](#features)
+- [Quick Start](#quick-start)
+- [Taking Notes](#taking-notes)
+    - [Note Filename](#note-filename)
+        - [Filename Tokens](#filename-tokens)
+        - [File Path Detection](#file-path-detection)
+        - [Snippets](#snippets)
+        - [Tags](#tags)
+        - [Explorer View](#explorer-view)
+- [Settings](#settings)
+- [Tips and tricks](#tips-and-tricks)
+- [Roadmap & Features](#roadmap-features)
+- [Change log](#change-log)
+- [Contributing](#contributing)
+- [Reviews](#reviews)
+
+<!-- /TOC -->
 
 # Demo Video
 
@@ -19,23 +44,26 @@ A simple tool that takes care of the creation and management of plain text notes
 4. Retrieve notes via tags in YAML encoded frontmatter on your notes.
 5. Open your note folder in a new window.
 6. View your notes and tags in your filebar.
+7. Automatically insert a VS Code snippet upon creation of a new note.
 
 # Quick Start
 
-- Install the extension from the VS Code Extension menu or [click install on this page.](https://www.youtube.com/watch?v=Kcf4rpRDmlQ).
+- Install the extension from the VS Code Extension menu or [click install on this page.](https://marketplace.visualstudio.com/items?itemName=patricklee.vsnotes).
 - Open the command palette `Ctrl/Cmd + Shift + p` and type `vsnotes`. Select Run Setup.
 - Click start and then select a directory to save your notes to.
 
-To modify other settings, open the VS Code settings `Preferences > Settings` or hit `Ctrl/Cmd + ,` and type in vsnotes in the search bar. To override the setting, copy it over to your user settings file and modify.
+> To modify other settings, open the VS Code settings `Preferences > Settings` or hit `Ctrl/Cmd + ,` and type in vsnotes in the search bar. To override the setting, copy it over to your user settings file and modify.
+
+- Access VSNotes commands in the command pallette by pressing `ctrl/cmd + shift + p` and typing vsnotes.
 
 # Taking Notes
-VSNotes is just a quick way to create files in a single location and retrieve them later. Harness the power of VSCode and the extension ecosystem to customize your note taking workflow.
+VSNotes is just a quick way to create files in a single location and retrieve them later. Harness the power of VSCode and the extension ecosystem to customize your note taking workflow. The default file type is markdown and features are built around taking markdown notes. However if you want to save your notes as other types of plain text files, you can change the settings to append a different file extension.
 
-## Creating a note -- Filename
-When creating a new note, VS Notes will look at the `vsnotes.defaultNoteTitle` setting to grab the format for the file name. This string contains several tokens that is converted by VS Notes when a note is created. Tokens can be modified in the `vsnotes.tokens` setting, but shouldn't be modified unless necessary. When asked to input a title for your new note, VSNotes can detect file paths and will create subfolders as necessary.
+## Note Filename
+When creating a new note, VS Notes will look at the `vsnotes.defaultNoteTitle` setting to grab the format for the file name. This string contains several [tokens](#filename-tokens) that is converted by VS Notes when a note is created. Tokens can be modified in the `vsnotes.tokens` setting, but shouldn't be modified unless necessary. When asked to input a title for your new note, VSNotes can [detect file paths and will create subfolders as necessary](#file-path-detection).
 
-### Filename Tokens:
-Tokens are added to the defaultNoteTitle setting and will automatically insert desired data into the file name of the note. This gives us the ability to specify a simple title for a note and have additional metadata added to the file name.
+### Filename Tokens
+Tokens are added to the `defaultNoteTitle` setting and will automatically insert desired data into the file name of the note. This gives us the ability to specify a simple title for a note and have additional metadata added to the file name.
 
 - datetime: Inserts the current date time in a format specified by the format key. [Formatting options](https://momentjs.com/docs/#/displaying/format/). Don't modify type or token keys unless you know what you're doing.
 
@@ -85,7 +113,7 @@ VSNotes understands file paths and will create folders as necessary. When prompt
 
 ### Snippets
 
-New on 0.2.0 - VS Notes will automatically execute a snippet after creating a note to pre-populate the note with a handy form template. The default snippet is called vsnotes and created for the markdown language. You can override it by adding this option to your settings.json file and pointing it to a [custom snippet you've created](https://code.visualstudio.com/docs/editor/userdefinedsnippets).
+[New in 0.2.0] VS Notes will automatically execute a snippet after creating a note to pre-populate the note with a handy form template. The default snippet is called vsnotes and created for the markdown language. You can override it by adding this option to your settings.json file and pointing it to a [custom snippet you've created](https://code.visualstudio.com/docs/editor/userdefinedsnippets).
 
 ```
   "vsnotes.defaultSnippet": {
@@ -99,9 +127,9 @@ New on 0.2.0 - VS Notes will automatically execute a snippet after creating a no
 - Set both `langId` and `name` to null to disable automatic snippet insertion.
 
 ### Tags
-New in 0.2.0 - VS Notes adds the ability to pull tags out of markdown notes.
+[New in 0.2.0] VS Notes adds the ability to pull tags out of documents containing a [YAML](http://yaml.org/) [frontmatter block (a la jekyll's frontmatter)](https://jekyllrb.com/docs/frontmatter/). YAML frontmatter is a way to encode machine parsable data in a way that is friendly to read and write.
 
-If a markdown note in your note folder has YAML frontmatter with a tag array, VS Notes will extract the tags from the note and show you all notes with specific tags.
+If a file in your note folder has YAML frontmatter with a tag array, VS Notes will extract the tags from the note and show you all notes with specific tags.
 
 Example YAML frontmatter
 
@@ -112,16 +140,19 @@ tags:
   - tag1
   - tag2
 ---
-# Markdown goes here
+
+The rest of the document goes here
 ...
 ```
+
+VS Notes ships with a default YAML encoded snippet that it will insert on creation of a new note.
 
 ### Explorer View
 ![](https://github.com/patleeman/VSNotes/raw/master/img/vsnotes_view.png)
 
-New in 0.3.0 - VS Notes adds a tree view to the explorer.
+[New in 0.3.0] VS Notes adds a tree view to the explorer.
 
-Access your notes no matter what you're doing. This new treeview adds a quick way to access your tags or files at any time.
+Access your notes no matter what you're doing. This new treeview adds a quick way to access your tags or files at any time by placing a small window in your explorer (file bar) that displays your tags and the contents of your note folder. Now you don't have to navigate away from a project or open a new window to reference your notes. Quick and easy.
 
 # Settings
 Available settings
@@ -175,11 +206,13 @@ Available settings
 ```
 
 # Tips and tricks
-- [Supercharge your note taking workflow with snippets](https://code.visualstudio.com/docs/editor/userdefinedsnippets)
-- [Take advantage of built in markdown features in VSCode](https://code.visualstudio.com/docs/languages/markdown)
+- [Customize your default template with snippets](https://code.visualstudio.com/docs/editor/userdefinedsnippets). Create your own snippets and automatically have them populate when creating a new note with the `vsnotes.defaultSnippet` setting.
+- [Take advantage of built in markdown features in VSCode](https://code.visualstudio.com/docs/languages/markdown). VS Code has some very rich Markdown features to take advantage of.
+- [Supercharge your markdown workflow with extensions](https://marketplace.visualstudio.com/search?term=markdown&target=VSCode&category=All%20categories&sortBy=Relevance). Find extensions in the marketplace to add markdown functionality to your workflow.
 
 # Roadmap & Features
-- Optimize tags. Index and cache tags to increase lookup times for large note collections.
+
+[See Github Issues](https://github.com/patleeman/VSNotes/issues?q=is%3Aissue+is%3Aopen+label%3Aenhancement)
 
 # Change log
 
