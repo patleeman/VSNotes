@@ -23,7 +23,7 @@ module.exports = function () {
           const fullpath = path.join(noteFolder, chosenShortPath)
 
           vscode.window.showTextDocument(vscode.Uri.file(fullpath)).then(file => {
-            console.log('Opening file.');
+            console.log('Opening file ' + fullpath);
           }, err => {
             console.error(err);
           })
@@ -45,36 +45,55 @@ function createTagIndex(noteFolderPath) {
   const ignorePattern = new RegExp(config.get('ignorePatterns')
     .map(function (pattern) { return '(' + pattern + ')' })
     .join('|'));
+
   return new Promise((resolve, reject) => {
-    let tagIndex = {}
+    let files = [];
 
     klaw(noteFolderPath)
       .on('data', item => {
-        const fileName = path.basename(item.path);
-        if (!ignorePattern.test(fileName)) {
-          fs.readFile(item.path).then(fileContents => {
-            const parsedFrontMatter = matter(fileContents)
-            if ('tags' in parsedFrontMatter.data) {
-              for (let tag of parsedFrontMatter.data.tags) {
-                if (tag in tagIndex) {
-                  tagIndex[tag].push(item.path);
-                } else {
-                  tagIndex[tag] = [item.path];
-                }
-              }
+        files.push(new Promise((res, rej) => {
+          const fileName = path.basename(item.path);
+          fs.lstat(item.path).then(fileStats => {
+            if (!fileStats.isDirectory() && !ignorePattern.test(fileName)) {
+              fs.readFile(item.path).then(contents => {
+                res({ path: item.path, contents: contents});
+              }).catch(err => {
+                console.log(err);
+                res(); // resolve undefined
+              })
+            } else {
+              res(); // resolve undefined
             }
           }).catch(err => {
-            console.error(err);
+            res();
           })
-        }
+        }))
       })
       .on('error', (err, item) => {
         reject(err)
         console.error('Error while walking notes folder for tags: ', item, err);
       })
       .on('end', () => {
-        console.log(tagIndex)
-        resolve(tagIndex)
+        Promise.all(files).then(files => {
+          let tagIndex = {};
+          for (let i = 0; i < files.length; i++) {
+            if (files[i] != null && files[i]) {
+              const parsedFrontMatter = matter(files[i].contents);
+              if ('tags' in parsedFrontMatter.data) {
+                for (let tag of parsedFrontMatter.data.tags) {
+                  if (tag in tagIndex) {
+                    tagIndex[tag].push(files[i].path);
+                  } else {
+                    tagIndex[tag] = [files[i].path];
+                  }
+                }
+              }
+            }
+          }
+          resolve(tagIndex);
+        }).catch(err => {
+          console.error(err)
+        })
       })
   })
 }

@@ -99,7 +99,6 @@ class VSNotesTreeView  {
       fs.readdir(filePath).then(files => {
         let items = [];
         files.forEach(file => {
-
           if (!this.ignorePattern.test(file)) {
             items.push({
               type: 'file',
@@ -118,54 +117,75 @@ class VSNotesTreeView  {
 
   _getTags () {
     return new Promise((resolve, reject) => {
-      let tagIndex = {}
+      let files = [];
 
       klaw(this.baseDir)
         .on('data', item => {
-          const fileName = path.basename(item.path);
-          if (!this.ignorePattern.test(fileName)) {
-            fs.readFile(item.path).then(fileContents => {
-              const parsedFrontMatter = matter(fileContents)
-              if ('tags' in parsedFrontMatter.data) {
-                for (let tag of parsedFrontMatter.data.tags) {
-
-                  const payload = {
-                    type: 'file',
-                    file: fileName,
+          files.push(new Promise((res, rej) => {
+            const fileName = path.basename(item.path);
+            fs.lstat(item.path).then(fileStats => {
+              if (!fileStats.isDirectory() && !this.ignorePattern.test(fileName)) {
+                fs.readFile(item.path).then(contents => {
+                  res({
                     path: item.path,
-                    stats: fs.statSync(item.path)
-                  }
-
-                  if (tag in tagIndex) {
-                    tagIndex[tag].push(payload)
-                  } else {
-                    tagIndex[tag] = [payload]
-                  }
-                }
+                    contents: contents,
+                    payload: {
+                      type: 'file',
+                      file: fileName,
+                      path: item.path,
+                      stats: fileStats
+                    }
+                  });
+                }).catch(err => {
+                  console.error(err);
+                  res();
+                })
+              } else {
+                res();
               }
             }).catch(err => {
-              console.error(err)
+              res();
             })
-          }
+          }))
         })
         .on('error', (err, item) => {
           reject(err)
           console.error('Error while walking notes folder for tags: ', item, err);
         })
         .on('end', () => {
-          let tags = []
-          for (let tag of Object.keys(tagIndex)) {
+          Promise.all(files).then(files => {
 
-            tags.push({
-              type: 'tag',
-              tag: tag,
-              files: tagIndex[tag]
-            })
-          }
-
-          resolve(tags)
+            // Build a tag index first
+            let tagIndex = {};
+            for (let i = 0; i < files.length; i++) {
+              if (files[i] != null && files[i]) {
+                const parsedFrontMatter = matter(files[i].contents);
+                if ('tags' in parsedFrontMatter.data) {
+                  for (let tag of parsedFrontMatter.data.tags) {
+                    if (tag in tagIndex) {
+                      tagIndex[tag].push(files[i].payload);
+                    } else {
+                      tagIndex[tag] = [files[i].payload];
+                    }
+                  }
+                }
+              }
+            }
+            // Then build an array of tags
+            let tags = []
+            for (let tag of Object.keys(tagIndex)) {
+              tags.push({
+                type: 'tag',
+                tag: tag,
+                files: tagIndex[tag]
+              })
+            }
+            resolve(tags);
+          }).catch(err => {
+            console.error(err)
+          })
         })
-      })
+    });
   }
 }
 
