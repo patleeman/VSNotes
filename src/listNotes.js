@@ -16,7 +16,8 @@ module.exports = function () {
   // Using klaw, recursively iterate through notes directory.
   klaw(noteFolder)
     .on('data', item => {
-      if (!ignorePattern.test(item)) {
+      const relativePath = item.path.slice(noteFolder.length + 1, item.path.length);
+      if (!ignorePattern.test(relativePath) && !item.stats.isDirectory()) {
         files.push(item);
       }
     })
@@ -48,7 +49,7 @@ module.exports = function () {
       vscode.window.showQuickPick(shortPaths.reverse()).then(res => {
         if (res != null && res ) {
           vscode.window.showTextDocument(vscode.Uri.file(path.join(noteFolder, res))).then(file => {
-            console.log('Opening file.');
+            console.log('Opening file ', res);
           }, err => {
             console.error(err);
           })
