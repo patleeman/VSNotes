@@ -20,13 +20,15 @@ module.exports = function () {
         })
 
         vscode.window.showQuickPick(shortPaths).then(chosenShortPath => {
-          const fullpath = path.join(noteFolder, chosenShortPath)
+          if (chosenShortPath != null && chosenShortPath) {
+            const fullpath = path.join(noteFolder, chosenShortPath)
 
-          vscode.window.showTextDocument(vscode.Uri.file(fullpath)).then(file => {
-            console.log('Opening file ' + fullpath);
-          }, err => {
-            console.error(err);
-          })
+            vscode.window.showTextDocument(vscode.Uri.file(fullpath)).then(file => {
+              console.log('Opening file ' + fullpath);
+            }, err => {
+              console.error(err);
+            })
+          }
         }, err => {
           console.error(err)
         })
