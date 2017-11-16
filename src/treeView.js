@@ -123,29 +123,25 @@ class VSNotesTreeView  {
         .on('data', item => {
           files.push(new Promise((res, rej) => {
             const fileName = path.basename(item.path);
-            fs.lstat(item.path).then(fileStats => {
-              if (!fileStats.isDirectory() && !this.ignorePattern.test(fileName)) {
-                fs.readFile(item.path).then(contents => {
-                  res({
+            if (!item.stats.isDirectory() && !this.ignorePattern.test(fileName)) {
+              fs.readFile(item.path).then(contents => {
+                res({
+                  path: item.path,
+                  contents: contents,
+                  payload: {
+                    type: 'file',
+                    file: fileName,
                     path: item.path,
-                    contents: contents,
-                    payload: {
-                      type: 'file',
-                      file: fileName,
-                      path: item.path,
-                      stats: fileStats
-                    }
-                  });
-                }).catch(err => {
-                  console.error(err);
-                  res();
-                })
-              } else {
+                    stats: item.stats
+                  }
+                });
+              }).catch(err => {
+                console.error(err);
                 res();
-              }
-            }).catch(err => {
+              })
+            } else {
               res();
-            })
+            }
           }))
         })
         .on('error', (err, item) => {

@@ -53,20 +53,16 @@ function createTagIndex(noteFolderPath) {
       .on('data', item => {
         files.push(new Promise((res, rej) => {
           const fileName = path.basename(item.path);
-          fs.lstat(item.path).then(fileStats => {
-            if (!fileStats.isDirectory() && !ignorePattern.test(fileName)) {
-              fs.readFile(item.path).then(contents => {
-                res({ path: item.path, contents: contents});
-              }).catch(err => {
-                console.log(err);
-                res(); // resolve undefined
-              })
-            } else {
+          if (!item.stats.isDirectory() && !ignorePattern.test(fileName)) {
+            fs.readFile(item.path).then(contents => {
+              res({ path: item.path, contents: contents});
+            }).catch(err => {
+              console.log(err);
               res(); // resolve undefined
-            }
-          }).catch(err => {
-            res();
-          })
+            })
+          } else {
+            res(); // resolve undefined
+          }
         }))
       })
       .on('error', (err, item) => {
