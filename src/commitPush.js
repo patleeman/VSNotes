@@ -1,5 +1,5 @@
 const vscode = require('vscode');
-const { exec } = require('child_process');
+const process = require('child_process');
 
 // Experiment using the vscode git extension to commit and push
 // module.exports = function () {
@@ -33,13 +33,13 @@ module.exports = function () {
   }).then(commitMessage => {
     if (commitMessage != null && commitMessage) {
       const fullCommand = command.replace(new RegExp('{msg}'), commitMessage);
-      exec(fullCommand, options, function (err, stdout, stderr) {
-        if (err || stderr) {
-          vscode.window.showErrorMessage('Whoops! Commit and Push failed! Check the dev console for error message.');
-          console.error(err, stderr);
+      process.exec(fullCommand, options, function (err, stdout, stderr) {
+        if (err) {
+          vscode.window.showErrorMessage('Commit and push failed to execute. Check console for more information');
+          console.error('Commit and push failed. Here is the error: ', err);
         } else {
-          vscode.window.showInformationMessage(`Commit and Push executed successfully!`);
-          console.log(stdout);
+          vscode.window.showInformationMessage(`Commit and Push executed!`);
+          console.log(stdout, stderr);
         }
       })
     } else {
