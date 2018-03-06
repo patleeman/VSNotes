@@ -6,6 +6,7 @@ const listTags = require('./src/listTags')
 const setupNotes = require('./src/setupNotes');
 const VSNotesTreeView = require('./src/treeView');
 const commitPush = require('./src/commitPush');
+const search = require('./src/search');
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -32,13 +33,18 @@ function activate(context) {
     let setupDisposable = vscode.commands.registerCommand('extension.setupNotes', setupNotes);
     context.subscriptions.push(setupDisposable);
 
+    // Commit and Push
     let commitPushDisposable = vscode.commands.registerCommand('extension.commitPush', commitPush);
     context.subscriptions.push(commitPushDisposable);
+
+    // Search
+    let searchDisposable = vscode.commands.registerCommand('extension.search', search, {context: context});
+    context.subscriptions.push(searchDisposable);
 
     // Open note folder in new workspace
     let openNoteFolderDisposable = vscode.commands.registerCommand('extension.openNoteFolder', () => {
       const uri = vscode.Uri.file(vscode.workspace.getConfiguration('vsnotes').get('defaultNotePath'));
-      return vscode.commands.executeCommand('vscode.openFolder', uri);
+      return vscode.commands.executeCommand('vscode.openFolder', uri, true);
     })
     context.subscriptions.push(openNoteFolderDisposable);
 
