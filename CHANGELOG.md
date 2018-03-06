@@ -3,6 +3,11 @@ All notable changes to the "vsnotes" extension will be documented in this file.
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.5.0] - 2018-3-6
+- Add search command
+- Update dependencies and close moment.js vulnerability
+- Updated Open Note Folder command to open in a new window
+
 ## [0.4.2] - 2017-11-15
 ### Fixes
 - Fix Tags not populating on editor view and in quick pick if more than a few notes in notes folder.
