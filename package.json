@@ -42,7 +42,7 @@
                 "vsnotes.defaultNotePath": {
                     "type": "string",
                     "default": "",
-                    "description": "Path to directory to save notes."
+                    "description": "Absolute path to directory to save notes."
                 },
                 "vsnotes.tokens": {
                     "type": "array",
