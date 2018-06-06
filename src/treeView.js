@@ -176,6 +176,8 @@ class VSNotesTreeView  {
                 files: tagIndex[tag]
               })
             }
+            // Sort tags alphabetically 
+            tags.sort(function(a,b) {return (a.tag > b.tag) ? 1 : ((b.tag > a.tag) ? -1 : 0);} ); 
             resolve(tags);
           }).catch(err => {
             console.error(err)
