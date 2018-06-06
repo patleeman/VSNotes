@@ -235,6 +235,14 @@ Available settings
 
 [See CONTRIBUTING.md](./CONTRIBUTING.md)
 
+# Contributors
+
+These lovely people have helped make VS Notes a better tool for everybody! Thank you!
+
+- [Github code contributions](https://github.com/patleeman/VSNotes/graphs/contributors)
+- VSCode icon created by [Phil Helm](https://github.com/phelma)
+
+
 # Reviews
 
 [Do you like VS Notes? Leave a review.](https://marketplace.visualstudio.com/items?itemName=patricklee.vsnotes#review-details)

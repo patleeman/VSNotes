@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512px" height="512px" viewBox="0 0 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>VSNotesIcon@1.5x</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="VSNotesIcon" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group" transform="translate(56.000000, 40.000000)">
+            <rect id="Rectangle" stroke="#0193D1" stroke-width="25" fill="#EAEAEA" x="12.5" y="44.5" width="376" height="376" rx="37"></rect>
+            <path d="M66.5,0.5 L66.5,90.5" id="Line-Copy" stroke="#0193D1" stroke-width="25" stroke-linecap="square"></path>
+            <path d="M119.5,0.5 L119.5,90.5" id="Line-Copy-2" stroke="#0193D1" stroke-width="25" stroke-linecap="square"></path>
+            <path d="M172.5,0.5 L172.5,90.5" id="Line-Copy-3" stroke="#0193D1" stroke-width="25" stroke-linecap="square"></path>
+            <path d="M225.5,0.5 L225.5,90.5" id="Line-Copy-4" stroke="#0193D1" stroke-width="25" stroke-linecap="square"></path>
+            <path d="M278.5,0.5 L278.5,90.5" id="Line-Copy-5" stroke="#0193D1" stroke-width="25" stroke-linecap="square"></path>
+            <path d="M331.5,0.5 L331.5,90.5" id="Line-Copy-6" stroke="#0193D1" stroke-width="25" stroke-linecap="square"></path>
+            <text id="VS" font-family="SourceCodePro-Black, Source Code Pro" font-size="176" font-weight="700" letter-spacing="-0.9953102" fill="#0193D1">
+                <tspan x="96.3953102" y="261">VS</tspan>
+            </text>
+            <text id="NOTES-Copy" font-family="SourceCodePro-Black, Source Code Pro" font-size="87" font-weight="700" letter-spacing="-1.49000001" fill="#0193D1">
+                <tspan x="76.725" y="352">NOTES</tspan>
+            </text>
+        </g>
+    </g>
+</svg>
