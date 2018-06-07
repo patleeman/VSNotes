@@ -156,6 +156,10 @@
                 "title": "VSNotes: Create New Note"
             },
             {
+                "command": "extension.instantNote",
+                "title": "VSNotes: Create New Instant Note"
+            },
+            {
                 "command": "extension.listNotes",
                 "title": "VSNotes: List recent notes"
             },

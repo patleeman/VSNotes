@@ -1,6 +1,7 @@
 const vscode = require('vscode');
 
 const newNote = require('./src/newNote');
+const instantNote = require('./src/instantNote');
 const listNotes = require('./src/listNotes');
 const listTags = require('./src/listTags')
 const setupNotes = require('./src/setupNotes');
@@ -20,6 +21,10 @@ function activate(context) {
     // Create a new note
     let newNoteDisposable = vscode.commands.registerCommand('extension.newNote', newNote);
     context.subscriptions.push(newNoteDisposable);
+
+    // Create a new instant note
+    let instantNoteDisposable = vscode.commands.registerCommand('extension.instantNote', instantNote);
+    context.subscriptions.push(instantNoteDisposable);
 
     // List recent notes in notes folder
     let listNotesDisposable = vscode.commands.registerCommand('extension.listNotes', listNotes);
