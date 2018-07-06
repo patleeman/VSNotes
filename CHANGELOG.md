@@ -3,10 +3,25 @@ All notable changes to the "vsnotes" extension will be documented in this file.
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.5.1] - 2018-6-6
+### Added
+- Updated NPM dependencies
+- New icon thanks to Phil Helm
+
+### Changed
+- Moved treeview into custom activitybar.
+
+### Fixes
+- Merged in [MR#16](https://github.com/patleeman/VSNotes/pull/15) which sorts tags alphabetically
+
+
+
 ## [0.5.0] - 2018-3-6
 - Add search command
 - Update dependencies and close moment.js vulnerability
 - Updated Open Note Folder command to open in a new window
+- Add `defaultNoteName` and pre-populate create note command with it to quickly create notes
+- Fix listRecentItems feature not sorting correctly
 
 ## [0.4.2] - 2017-11-15
 ### Fixes

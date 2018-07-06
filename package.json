@@ -2,7 +2,7 @@
     "name": "vsnotes",
     "displayName": "VSNotes",
     "description": "Simple VS Code extension for plain text note taking.",
-    "version": "0.5.0",
+    "version": "0.5.1",
     "publisher": "patricklee",
     "repository": {
         "type": "git",
@@ -79,18 +79,18 @@
                             "type": "datetime",
                             "token": "{dt}",
                             "format": "YYYY-MM-DD_HH-mm",
-                            "description": "Insert formatted datetime"
+                            "description": "Insert formatted datetime."
                         },
                         {
                             "type": "title",
                             "token": "{title}",
-                            "description": "Insert note title from input box",
+                            "description": "Insert note title from input box.",
                             "format": "Untitled"
                         },
                         {
                             "type": "extension",
                             "token": "{ext}",
-                            "description": "Insert file extension",
+                            "description": "Insert file extension.",
                             "format": "md"
                         }
                     ]
@@ -98,17 +98,22 @@
                 "vsnotes.defaultNoteTitle": {
                     "type": "string",
                     "default": "{dt}_{title}.{ext}",
-                    "description": "Default note title. Utilizes tokens set in vsnotes.tokens"
+                    "description": "Default note title. Utilizes tokens set in vsnotes.tokens."
+                },
+                "vsnotes.defaultNoteName": {
+                    "type": "string",
+                    "default": "New_Note",
+                    "description": "Default title for new notes."
                 },
                 "vsnotes.listRecentLimit": {
                     "type": "number",
                     "default": 15,
-                    "description": "Number of recent files to show when running command `List Notes`"
+                    "description": "Number of recent files to show when running command `List Notes`."
                 },
                 "vsnotes.noteTitleConvertSpaces": {
                     "type": "string",
                     "default": "_",
-                    "description": "Automatically convert blank spaces in title to character. To disable set to `null`"
+                    "description": "Automatically convert blank spaces in title to character. To disable set to `null`."
                 },
                 "vsnotes.defaultSnippet": {
                     "type": "object",
@@ -126,7 +131,7 @@
                         "langId": "markdown",
                         "name": "vsnotes"
                     },
-                    "description": "Default vscode snippet to execute after creating a note. Set both langId and name to null to disable"
+                    "description": "Default vscode snippet to execute after creating a note. Set both langId and name to null to disable."
                 },
                 "vsnotes.ignorePatterns": {
                     "type": "array",
@@ -136,7 +141,7 @@
                     "default": [
                         "^\\."
                     ],
-                    "description": "Regular expressions for file names to ignore when parsing documents in note folder"
+                    "description": "Regular expressions for file names to ignore when parsing documents in note folder."
                 },
                 "vsnotes.commitPushShellCommand": {
                     "type": "string",
@@ -146,7 +151,17 @@
                 "vsnotes.commitPushDefaultCommitMessage": {
                     "type": "string",
                     "default": "VS Notes Commit and Push",
-                    "description": "The default commit message used if none is provided with the Commit and Push command"
+                    "description": "The default commit message used if none is provided with the Commit and Push command."
+                },
+                "vsnotes.treeviewHideTags": {
+                  "type": "boolean",
+                  "default": false,
+                  "description": "Hide the tags section in the sidebar. Requires application restart."
+                },
+                "vsnotes.treeviewHideFiles": {
+                  "type": "boolean",
+                  "default": false,
+                  "description": "Hide the files section in the sidebar. Requires application restart."
                 }
             }
         },
@@ -195,12 +210,21 @@
             }
         ],
         "views": {
-            "explorer": [
+            "vsnotes": [
                 {
                     "id": "vsnotes",
                     "name": "VS Notes"
                 }
             ]
+        },
+        "viewsContainers": {
+          "activitybar": [
+            {
+              "id": "vsnotes",
+              "title": "VS Notes",
+              "icon": "./media/icon/vsnotes_icon.svg"
+            }
+          ]
         },
         "menus": {
             "view/title": [
@@ -217,17 +241,17 @@
         "test": "node ./node_modules/vscode/bin/test"
     },
     "devDependencies": {
-        "@types/mocha": "^2.2.42",
-        "@types/node": "^7.0.0",
-        "eslint": "^4.18.2",
-        "mocha": "^3.5.0",
-        "typescript": "^2.7.2",
-        "vscode": "^1.1.11"
+        "@types/mocha": "^5.2.1",
+        "@types/node": "^10.3.1",
+        "eslint": "^4.19.1",
+        "mocha": "^5.2.0",
+        "typescript": "^2.9.1",
+        "vscode": "^1.1.18"
     },
     "dependencies": {
-        "fs-extra": "^4.0.3",
-        "gray-matter": "^3.1.1",
+        "fs-extra": "^6.0.1",
+        "gray-matter": "^4.0.1",
         "klaw": "^2.1.1",
-        "moment": "^2.19.3"
+        "moment": "^2.22.2"
     }
 }

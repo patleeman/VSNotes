@@ -31,9 +31,9 @@ module.exports = function () {
         const aTime = new Date(a.stats.mtime);
         const bTime = new Date(b.stats.mtime);
         if (aTime > bTime) {
-          return 1;
-        } else if (aTime < bTime) {
           return -1;
+        } else if (aTime < bTime) {
+          return 1;
         } else {
           return 0;
         }
@@ -46,7 +46,7 @@ module.exports = function () {
         shortPaths.push(files[j].path.slice(noteFolderLen + 1, files[j].path.length));
       }
 
-      vscode.window.showQuickPick(shortPaths.reverse()).then(res => {
+      vscode.window.showQuickPick(shortPaths).then(res => {
         if (res != null && res ) {
           vscode.window.showTextDocument(vscode.Uri.file(path.join(noteFolder, res))).then(file => {
             console.log('Opening file ', res);
