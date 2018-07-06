@@ -195,12 +195,21 @@
             }
         ],
         "views": {
-            "explorer": [
+            "vsnotes": [
                 {
                     "id": "vsnotes",
                     "name": "VS Notes"
                 }
             ]
+        },
+        "viewsContainers": {
+          "activitybar": [
+            {
+              "id": "vsnotes",
+              "title": "VS Notes",
+              "icon": "./media/icon/vsnotes_icon.svg"
+            }
+          ]
         },
         "menus": {
             "view/title": [
