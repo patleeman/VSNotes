@@ -147,12 +147,14 @@ The rest of the document goes here
 
 VS Notes ships with a default YAML encoded snippet that it will insert on creation of a new note.
 
-### Explorer View
+### Custom Activity Bar Section & Explorer View
 ![](https://github.com/patleeman/VSNotes/raw/master/img/vsnotes_view.png)
 
-[New in 0.3.0] VS Notes adds a tree view to the explorer.
+[New in 0.5.1] VS Notes moves the treeview into it's own custom location in the activity bar.
 
 Access your notes no matter what you're doing. This new treeview adds a quick way to access your tags or files at any time by placing a small window in your explorer (file bar) that displays your tags and the contents of your note folder. Now you don't have to navigate away from a project or open a new window to reference your notes. Quick and easy.
+
+[New in 0.5.1] Show or hide the tags or files section of the treeview with the `treeviewHideTags` and `treeviewHideFiles` settings.
 
 ### Commit and Push
 
@@ -166,8 +168,37 @@ Note that this has not been tested on windows machines and may not work without 
 Available settings
 
 ```
- // Path to directory to save notes.
+// The default commit message used if none is provided with the Commit and Push command
+  "vsnotes.commitPushDefaultCommitMessage": "VS Notes Commit and Push",
+
+  // Shell command to execute in the note directory when the Commit and Push command is executed. The {msg} token will be replaced with the contents of an input box shown or, if empty, the default commit message.
+  "vsnotes.commitPushShellCommand": "git add -A && git commit -m '{msg}' && git push",
+
+  // Default title for new notes.
+  "vsnotes.defaultNoteName": "New_Note",
+
+  // Absolute path to directory to save notes.
   "vsnotes.defaultNotePath": "",
+
+  // Default note title. Utilizes tokens set in vsnotes.tokens
+  "vsnotes.defaultNoteTitle": "{dt}_{title}.{ext}",
+
+  // Default vscode snippet to execute after creating a note. Set both langId and name to null to disable
+  "vsnotes.defaultSnippet": {
+    "langId": "markdown",
+    "name": "vsnotes"
+  },
+
+  // Regular expressions for file names to ignore when parsing documents in note folder
+  "vsnotes.ignorePatterns": [
+    "^\\."
+  ],
+
+  // Number of recent files to show when running command `List Notes`
+  "vsnotes.listRecentLimit": 15,
+
+  // Automatically convert blank spaces in title to character. To disable set to `null`
+  "vsnotes.noteTitleConvertSpaces": "_",
 
   // Tokens used to replace text in file name.
   "vsnotes.tokens": [
@@ -191,31 +222,11 @@ Available settings
     }
   ],
 
-  // Default note title. Utilizes tokens set in vsnotes.tokens
-  "vsnotes.defaultNoteTitle": "{dt}_{title}.{ext}",
+  // Hide the files section in the sidebar
+  "vsnotes.treeviewHideFiles": false,
 
-  // Number of recent files to show when running command `List Notes`
-  "vsnotes.listRecentLimit": 15,
-
-  // Automatically convert blank spaces in title to character. To disable set to `null`
-  "vsnotes.noteTitleConvertSpaces": "_",
-
-  // Default vscode snippet to execute after creating a note. Set both langId and name to null to disable
-  "vsnotes.defaultSnippet": {
-    "langId": "markdown",
-    "name": "vsnotes"
-  },
-
-  // Regular expressions for file names to ignore when parsing documents in note folder
-  "vsnotes.ignorePatterns": [
-    "^\\."
-  ],
-
-  // Shell command to execute in the note directory when the Commit and Push command is executed. The {msg} token will be replaced with the contents of an input box shown or, if empty, the default commit message.
-  "vsnotes.commitPushShellCommand": "git add -A && git commit -m '{msg}' && git push",
-
-  // The default commit message used if none is provided with the Commit and Push command
-  "vsnotes.commitPushDefaultCommitMessage": "VS Notes Commit and Push",
+  // Hide the tags section in the sidebar
+  "vsnotes.treeviewHideTags": false
 ```
 
 # Tips and tricks
