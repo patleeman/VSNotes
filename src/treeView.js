@@ -12,6 +12,8 @@ class VSNotesTreeView  {
     this.ignorePattern = new RegExp(config.get('ignorePatterns')
       .map(function (pattern) {return '(' + pattern + ')'})
       .join('|'));
+    this.hideTags = config.get('treeviewHideTags');
+    this.hideFiles = config.get('treeviewHideFiles');
 
     this._onDidChangeTreeData = new vscode.EventEmitter();
     this.onDidChangeTreeData = this._onDidChangeTreeData.event;
@@ -35,14 +37,18 @@ class VSNotesTreeView  {
           return Promise.resolve(this._getDirectoryContents(node.path));
       }
     } else {
-      return [
-        {
+      const treeview = [];
+      if (!this.hideFiles) {
+        treeview.push({
           type: 'rootFile'
-        },
-        {
+        });
+      }
+      if (!this.hideTags) {
+        treeview.push({
           type: 'rootTag'
-        }
-      ];
+        });
+      }
+      return treeview;
     }
   }
 
@@ -176,8 +182,8 @@ class VSNotesTreeView  {
                 files: tagIndex[tag]
               })
             }
-            // Sort tags alphabetically 
-            tags.sort(function(a,b) {return (a.tag > b.tag) ? 1 : ((b.tag > a.tag) ? -1 : 0);} ); 
+            // Sort tags alphabetically
+            tags.sort(function(a,b) {return (a.tag > b.tag) ? 1 : ((b.tag > a.tag) ? -1 : 0);} );
             resolve(tags);
           }).catch(err => {
             console.error(err)
