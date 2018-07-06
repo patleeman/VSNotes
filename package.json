@@ -79,18 +79,18 @@
                             "type": "datetime",
                             "token": "{dt}",
                             "format": "YYYY-MM-DD_HH-mm",
-                            "description": "Insert formatted datetime"
+                            "description": "Insert formatted datetime."
                         },
                         {
                             "type": "title",
                             "token": "{title}",
-                            "description": "Insert note title from input box",
+                            "description": "Insert note title from input box.",
                             "format": "Untitled"
                         },
                         {
                             "type": "extension",
                             "token": "{ext}",
-                            "description": "Insert file extension",
+                            "description": "Insert file extension.",
                             "format": "md"
                         }
                     ]
@@ -98,7 +98,7 @@
                 "vsnotes.defaultNoteTitle": {
                     "type": "string",
                     "default": "{dt}_{title}.{ext}",
-                    "description": "Default note title. Utilizes tokens set in vsnotes.tokens"
+                    "description": "Default note title. Utilizes tokens set in vsnotes.tokens."
                 },
                 "vsnotes.defaultNoteName": {
                     "type": "string",
@@ -108,12 +108,12 @@
                 "vsnotes.listRecentLimit": {
                     "type": "number",
                     "default": 15,
-                    "description": "Number of recent files to show when running command `List Notes`"
+                    "description": "Number of recent files to show when running command `List Notes`."
                 },
                 "vsnotes.noteTitleConvertSpaces": {
                     "type": "string",
                     "default": "_",
-                    "description": "Automatically convert blank spaces in title to character. To disable set to `null`"
+                    "description": "Automatically convert blank spaces in title to character. To disable set to `null`."
                 },
                 "vsnotes.defaultSnippet": {
                     "type": "object",
@@ -131,7 +131,7 @@
                         "langId": "markdown",
                         "name": "vsnotes"
                     },
-                    "description": "Default vscode snippet to execute after creating a note. Set both langId and name to null to disable"
+                    "description": "Default vscode snippet to execute after creating a note. Set both langId and name to null to disable."
                 },
                 "vsnotes.ignorePatterns": {
                     "type": "array",
@@ -141,7 +141,7 @@
                     "default": [
                         "^\\."
                     ],
-                    "description": "Regular expressions for file names to ignore when parsing documents in note folder"
+                    "description": "Regular expressions for file names to ignore when parsing documents in note folder."
                 },
                 "vsnotes.commitPushShellCommand": {
                     "type": "string",
@@ -151,7 +151,17 @@
                 "vsnotes.commitPushDefaultCommitMessage": {
                     "type": "string",
                     "default": "VS Notes Commit and Push",
-                    "description": "The default commit message used if none is provided with the Commit and Push command"
+                    "description": "The default commit message used if none is provided with the Commit and Push command."
+                },
+                "vsnotes.treeviewHideTags": {
+                  "type": "boolean",
+                  "default": false,
+                  "description": "Hide the tags section in the sidebar. Requires application restart."
+                },
+                "vsnotes.treeviewHideFiles": {
+                  "type": "boolean",
+                  "default": false,
+                  "description": "Hide the files section in the sidebar. Requires application restart."
                 }
             }
         },
