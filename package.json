@@ -100,6 +100,11 @@
                     "default": "{dt}_{title}.{ext}",
                     "description": "Default note title. Utilizes tokens set in vsnotes.tokens"
                 },
+                "vsnotes.defaultNoteName": {
+                    "type": "string",
+                    "default": "New_Note",
+                    "description": "Default title for new notes."
+                },
                 "vsnotes.listRecentLimit": {
                     "type": "number",
                     "default": 15,

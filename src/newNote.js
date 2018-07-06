@@ -11,6 +11,7 @@ module.exports = function () {
   const config = vscode.workspace.getConfiguration('vsnotes');
   const noteFolder = config.get('defaultNotePath');
   const defaultNoteTitle = config.get('defaultNoteTitle');
+  const defaultNoteName = config.get('defaultNoteName');
   const tokens = config.get('tokens');
   const snippetLangId = config.get('defaultSnippet.langId');
   const snippetName = config.get('defaultSnippet.name');
@@ -24,7 +25,7 @@ module.exports = function () {
   // Get the name for the note
   const inputBoxPromise = vscode.window.showInputBox({
     prompt: 'Note Title. Replaces title token. Current Format: ' + defaultNoteTitle + '',
-    value: '',
+    value: replaceTokens(defaultNoteTitle, defaultNoteName, tokens),
   })
 
   inputBoxPromise.then(noteName => {
