@@ -24,14 +24,13 @@ module.exports = function () {
 
   // Get the name for the note
   const inputBoxPromise = vscode.window.showInputBox({
-    prompt: 'Note Title. Replaces title token. Current Format: ' + defaultNoteTitle + '',
-    value: replaceTokens(defaultNoteTitle, defaultNoteName, tokens),
+    prompt: `Note title? Current Format ${defaultNoteTitle}. Hit enter for instant note.`,
+    value: "",
   })
 
   inputBoxPromise.then(noteName => {
     if (noteName == null || !noteName) {
-      console.log('Input cancelled')
-      return false
+      noteName = defaultNoteName
     }
 
     let fileName = replaceTokens(defaultNoteTitle, noteName, tokens);
