@@ -1,6 +1,6 @@
 const vscode = require('vscode');
 
-const newNote = require('./src/newNote');
+const {newNote, newNoteInWorkspace} = require('./src/newNote');
 const listNotes = require('./src/listNotes');
 const listTags = require('./src/listTags')
 const setupNotes = require('./src/setupNotes');
@@ -21,6 +21,10 @@ function activate(context) {
     // Create a new note
     let newNoteDisposable = vscode.commands.registerCommand('vsnotes.newNote', newNote);
     context.subscriptions.push(newNoteDisposable);
+
+    // Create a new note in a current workspace
+    let newNoteInWorkspaceDisposable = vscode.commands.registerCommand('vsnotes.newNoteInWorkspace', newNoteInWorkspace);
+    context.subscriptions.push(newNoteInWorkspaceDisposable);
 
     // List recent notes in notes folder
     let listNotesDisposable = vscode.commands.registerCommand('vsnotes.listNotes', listNotes);

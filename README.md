@@ -45,6 +45,7 @@ VS Notes is a simple tool that takes care of the creation and management of plai
 6. View your notes and tags in your filebar.
 7. Automatically insert a VS Code snippet upon creation of a new note.
 8. Commit and push to your upstream repository with a single command.
+9. *New* Create a note in a currently open workspace.
 
 # Quick Start
 
@@ -58,6 +59,8 @@ VS Notes is a simple tool that takes care of the creation and management of plai
 
 # Taking Notes
 VSNotes is just a quick way to create files in a single location and retrieve them later. Harness the power of VSCode and the extension ecosystem to customize your note taking workflow. The default file type is markdown and features are built around taking markdown notes. However if you want to save your notes as other types of plain text files, you can change the settings to append a different file extension.
+
+[New in 0.6.0] Create a note in one of the currently open workspaces with the new Create note in workspace command. If you have multiple workspaces open, you will be down a dropdown list to pick which workspace to create a note in.
 
 ## Note Filename
 When creating a new note, VS Notes will look at the `vsnotes.defaultNoteTitle` setting to grab the format for the file name. This string contains several [tokens](#filename-tokens) that is converted by VS Notes when a note is created. Tokens can be modified in the `vsnotes.tokens` setting, but shouldn't be modified unless necessary. When asked to input a title for your new note, VSNotes can [detect file paths and will create subfolders as necessary](#file-path-detection).
@@ -168,7 +171,7 @@ Note that this has not been tested on windows machines and may not work without 
 Available settings
 
 ```
-// The default commit message used if none is provided with the Commit and Push command
+  // The default commit message used if none is provided with the Commit and Push command.
   "vsnotes.commitPushDefaultCommitMessage": "VS Notes Commit and Push",
 
   // Shell command to execute in the note directory when the Commit and Push command is executed. The {msg} token will be replaced with the contents of an input box shown or, if empty, the default commit message.
@@ -180,24 +183,24 @@ Available settings
   // Path to directory to save notes. Use ~/ to denote a relative path from home folder.
   "vsnotes.defaultNotePath": "",
 
-  // Default note title. Utilizes tokens set in vsnotes.tokens
+  // Default note title. Utilizes tokens set in vsnotes.tokens.
   "vsnotes.defaultNoteTitle": "{dt}_{title}.{ext}",
 
-  // Default vscode snippet to execute after creating a note. Set both langId and name to null to disable
+  // Default vscode snippet to execute after creating a note. Set both langId and name to null to disable.
   "vsnotes.defaultSnippet": {
     "langId": "markdown",
     "name": "vsnotes"
   },
 
-  // Regular expressions for file names to ignore when parsing documents in note folder
+  // Regular expressions for file names to ignore when parsing documents in note folder.
   "vsnotes.ignorePatterns": [
     "^\\."
   ],
 
-  // Number of recent files to show when running command `List Notes`
+  // Number of recent files to show when running command `List Notes`.
   "vsnotes.listRecentLimit": 15,
 
-  // Automatically convert blank spaces in title to character. To disable set to `null`
+  // Automatically convert blank spaces in title to character. To disable set to `null`.
   "vsnotes.noteTitleConvertSpaces": "_",
 
   // Tokens used to replace text in file name.
@@ -206,26 +209,26 @@ Available settings
       "type": "datetime",
       "token": "{dt}",
       "format": "YYYY-MM-DD_HH-mm",
-      "description": "Insert formatted datetime"
+      "description": "Insert formatted datetime."
     },
     {
       "type": "title",
       "token": "{title}",
-      "description": "Insert note title from input box",
+      "description": "Insert note title from input box.",
       "format": "Untitled"
     },
     {
       "type": "extension",
       "token": "{ext}",
-      "description": "Insert file extension",
+      "description": "Insert file vsnotes.",
       "format": "md"
     }
   ],
 
-  // Hide the files section in the sidebar
+  // Hide the files section in the sidebar. Requires application restart.
   "vsnotes.treeviewHideFiles": false,
 
-  // Hide the tags section in the sidebar
+  // Hide the tags section in the sidebar. Requires application restart.
   "vsnotes.treeviewHideTags": false
 ```
 

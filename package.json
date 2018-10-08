@@ -2,7 +2,7 @@
     "name": "vsnotes",
     "displayName": "VSNotes",
     "description": "Simple VS Code extension for plain text note taking.",
-    "version": "0.5.2",
+    "version": "0.6.0",
     "publisher": "patricklee",
     "repository": {
         "type": "git",
@@ -25,6 +25,7 @@
     ],
     "activationEvents": [
         "onCommand:vsnotes.newNote",
+        "onCommand:vsnotes.newNoteInWorkspace",
         "onCommand:vsnotes.listNotes",
         "onCommand:vsnotes.listTags",
         "onCommand:vsnotes.setupNotes",
@@ -168,7 +169,11 @@
         "commands": [
             {
                 "command": "vsnotes.newNote",
-                "title": "VSNotes: Create New Note"
+                "title": "VSNotes: Create a New Note"
+            },
+            {
+                "command": "vsnotes.newNoteInWorkspace",
+                "title": "VSNotes: Create a New Note in a workspace."
             },
             {
                 "command": "vsnotes.listNotes",

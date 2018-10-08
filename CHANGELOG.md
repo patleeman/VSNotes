@@ -3,6 +3,16 @@ All notable changes to the "vsnotes" extension will be documented in this file.
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.6.0] - 2018-10-8
+### Added
+- You can now use the home designator (~/) in the defaultNotePath.
+- Adds a new command that creates a note in a currently opened workspace.
+
+### Fixes
+- Fixes namespace for commands.
+- Fixes bug [#26](https://github.com/patleeman/VSNotes/issues/26).
+
+
 ## [0.5.1] - 2018-6-6
 ### Added
 - Updated NPM dependencies

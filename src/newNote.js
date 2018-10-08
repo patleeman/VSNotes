@@ -5,12 +5,44 @@ const path = require('path');
 const moment = require('moment');
 const {resolveHome} = require('./utils');
 
-// This function handles creation of a new note
-module.exports = function () {
 
-  // Get settings
+// This function handles creation of a new note in default note folder
+function newNote() {
   const config = vscode.workspace.getConfiguration('vsnotes');
   const noteFolder = resolveHome(config.get('defaultNotePath'));
+  createNote(noteFolder);
+}
+
+function newNoteInWorkspace() {
+  const workspaces = vscode.workspace.workspaceFolders;
+  if (workspaces == null || workspaces.length === 0) {
+    vscode.window.showErrorMessage('No workspaces open.');
+    return
+  } else if (workspaces.length === 1) {
+    createNote(workspaces[0].uri.fsPath);
+  } else {
+    const spaces = []
+    workspaces.forEach(workspace => {
+      spaces.push(workspace.name)
+    })
+
+    // Show dialog and ask which workspace to use.
+    vscode.window.showQuickPick(spaces).then(workspaceName => {
+      workspaces.every(workspace => {
+        if (workspace.name === workspaceName) {
+          const uri = workspace.uri
+          createNote(uri.fsPath)
+          return false;
+        }
+        return true
+      })
+    })
+  }
+}
+
+
+function createNote(noteFolder) {
+  const config = vscode.workspace.getConfiguration('vsnotes');
   const defaultNoteTitle = config.get('defaultNoteTitle');
   const defaultNoteName = config.get('defaultNoteName');
   const tokens = config.get('tokens');
@@ -68,8 +100,9 @@ module.exports = function () {
     vscode.workspace.showErrorMessage('Error occurred while creating note.');
     console.error(err);
   })
-
 }
+
+
 
 // Create the given file if it doesn't exist
 function createFile (folderPath, fileName) {
@@ -117,4 +150,9 @@ function replaceTokens (format, title, tokens) {
     }
   }
   return newFormat;
+}
+
+module.exports = {
+  newNote,
+  newNoteInWorkspace
 }
