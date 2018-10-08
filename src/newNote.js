@@ -3,13 +3,14 @@ const vscode = require('vscode');
 const fs = require('fs-extra');
 const path = require('path');
 const moment = require('moment');
+const {resolveHome} = require('./utils');
 
 // This function handles creation of a new note
 module.exports = function () {
 
   // Get settings
   const config = vscode.workspace.getConfiguration('vsnotes');
-  const noteFolder = config.get('defaultNotePath');
+  const noteFolder = resolveHome(config.get('defaultNotePath'));
   const defaultNoteTitle = config.get('defaultNoteTitle');
   const defaultNoteName = config.get('defaultNoteName');
   const tokens = config.get('tokens');

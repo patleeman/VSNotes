@@ -2,10 +2,11 @@
 const vscode = require('vscode');
 const klaw = require('klaw');
 const path = require('path');
+const {resolveHome} = require('./utils');
 
 module.exports = function () {
   const config = vscode.workspace.getConfiguration('vsnotes');
-  const noteFolder = config.get('defaultNotePath');
+  const noteFolder = resolveHome(config.get('defaultNotePath'));
   const listRecentLimit = config.get('listRecentLimit');
   const ignorePattern = new RegExp(config.get('ignorePatterns')
     .map(function (pattern) { return '(' + pattern + ')' })

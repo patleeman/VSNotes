@@ -177,7 +177,7 @@ Available settings
   // Default title for new notes.
   "vsnotes.defaultNoteName": "New_Note",
 
-  // Absolute path to directory to save notes.
+  // Path to directory to save notes. Use ~/ to denote a relative path from home folder.
   "vsnotes.defaultNotePath": "",
 
   // Default note title. Utilizes tokens set in vsnotes.tokens

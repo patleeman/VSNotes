@@ -1,26 +1,10 @@
 const vscode = require('vscode');
 const process = require('child_process');
-
-// Experiment using the vscode git extension to commit and push
-// module.exports = function () {
-//   console.log('commitPush')
-//   const gitExtension = vscode.extensions.getExtension('vscode.git');
-//   if (gitExtension != null) {
-//     console.log('gitextension', gitExtension.exports)
-//     gitExtension.activate().then(gitApi => {
-//       console.log('git', gitApi);
-
-//     }, err => {
-//       console.error(err)
-//     })
-//   } else {
-//     vscode.window.showErrorMessage('Git extension not found. VS Notes only supports Git at the moment. To request other SCMs, open an issue.');
-//   }
-// }
+const {resolveHome} = require('./utils');
 
 module.exports = function () {
   const config = vscode.workspace.getConfiguration('vsnotes');
-  const noteFolder = config.get('defaultNotePath');
+  const noteFolder = resolveHome(config.get('defaultNotePath'));
   const command = config.get('commitPushShellCommand');
   const defaultCommitMessage = config.get('commitPushDefaultCommitMessage');
   const options = {

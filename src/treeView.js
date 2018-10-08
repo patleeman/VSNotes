@@ -3,12 +3,12 @@ const fs = require('fs-extra');
 const path = require('path');
 const klaw = require('klaw');
 const matter = require('gray-matter');
-
+const {resolveHome} = require('./utils');
 
 class VSNotesTreeView  {
   constructor () {
     const config = vscode.workspace.getConfiguration('vsnotes');
-    this.baseDir = config.get('defaultNotePath');
+    this.baseDir = resolveHome(config.get('defaultNotePath'));
     this.ignorePattern = new RegExp(config.get('ignorePatterns')
       .map(function (pattern) {return '(' + pattern + ')'})
       .join('|'));

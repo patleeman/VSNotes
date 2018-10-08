@@ -3,10 +3,11 @@ const path = require('path');
 const fs = require('fs-extra');
 const klaw = require('klaw');
 const matter = require('gray-matter');
+const {resolveHome} = require('./utils');
 
 module.exports = function () {
   const config = vscode.workspace.getConfiguration('vsnotes');
-  const noteFolder = config.get('defaultNotePath');
+  const noteFolder = resolveHome(config.get('defaultNotePath'));
 
   const noteFolderLen = noteFolder.length;
 
