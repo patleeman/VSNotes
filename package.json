@@ -2,7 +2,7 @@
     "name": "vsnotes",
     "displayName": "VSNotes",
     "description": "Simple VS Code extension for plain text note taking.",
-    "version": "0.5.1",
+    "version": "0.5.2",
     "publisher": "patricklee",
     "repository": {
         "type": "git",
@@ -24,13 +24,13 @@
         "note"
     ],
     "activationEvents": [
-        "onCommand:extension.newNote",
-        "onCommand:extension.listNotes",
-        "onCommand:extension.listTags",
-        "onCommand:extension.setupNotes",
-        "onCommand:extension.openNoteFolder",
-        "onCommand:extension.commitPush",
-        "onCommand:extension.search",
+        "onCommand:vsnotes.newNote",
+        "onCommand:vsnotes.listNotes",
+        "onCommand:vsnotes.listTags",
+        "onCommand:vsnotes.setupNotes",
+        "onCommand:vsnotes.openNoteFolder",
+        "onCommand:vsnotes.commitPush",
+        "onCommand:vsnotes.search",
         "onView:vsnotes"
     ],
     "main": "./extension",
@@ -90,7 +90,7 @@
                         {
                             "type": "extension",
                             "token": "{ext}",
-                            "description": "Insert file extension.",
+                            "description": "Insert file vsnotes.",
                             "format": "md"
                         }
                     ]
@@ -167,41 +167,48 @@
         },
         "commands": [
             {
-                "command": "extension.newNote",
+                "command": "vsnotes.newNote",
                 "title": "VSNotes: Create New Note"
             },
             {
-                "command": "extension.listNotes",
+                "command": "vsnotes.listNotes",
                 "title": "VSNotes: List recent notes"
             },
             {
-                "command": "extension.listTags",
+                "command": "vsnotes.listTags",
                 "title": "VSNotes: List tags"
             },
             {
-                "command": "extension.openNoteFolder",
+                "command": "vsnotes.openNoteFolder",
                 "title": "VSNotes: Open Note Folder"
             },
             {
-                "command": "extension.setupNotes",
+                "command": "vsnotes.setupNotes",
                 "title": "VSNotes: Run setup"
             },
             {
-                "command": "extension.commitPush",
+                "command": "vsnotes.commitPush",
                 "title": "VSNotes: Commit and Push"
             },
             {
-                "command": "extension.search",
+                "command": "vsnotes.search",
                 "title": "VSNotes: Search notes"
             },
             {
-                "command": "extension.refreshVSNotesView",
+                "command": "vsnotes.refreshVSNotesView",
                 "title": "refresh",
                 "icon": {
                     "light": "./media/light/sync.svg",
                     "dark": "./media/dark/sync.svg"
                 }
             }
+        ],
+        "keybindings": [
+          {
+            "command": "vsnotes.newNote",
+            "key": "",
+            "mac": ""
+          }
         ],
         "snippets": [
             {
@@ -229,7 +236,7 @@
         "menus": {
             "view/title": [
                 {
-                    "command": "extension.refreshVSNotesView",
+                    "command": "vsnotes.refreshVSNotesView",
                     "when": "view == vsnotes",
                     "group": "navigation"
                 }

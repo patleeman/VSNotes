@@ -15,34 +15,34 @@ function activate(context) {
     vscode.window.registerTreeDataProvider('vsnotes', tv);
 
     // Refresh View
-    vscode.commands.registerCommand('extension.refreshVSNotesView', () => tv.refresh());
+    vscode.commands.registerCommand('vsnotes.refreshVSNotesView', () => tv.refresh());
 
     // Create a new note
-    let newNoteDisposable = vscode.commands.registerCommand('extension.newNote', newNote);
+    let newNoteDisposable = vscode.commands.registerCommand('vsnotes.newNote', newNote);
     context.subscriptions.push(newNoteDisposable);
 
     // List recent notes in notes folder
-    let listNotesDisposable = vscode.commands.registerCommand('extension.listNotes', listNotes);
+    let listNotesDisposable = vscode.commands.registerCommand('vsnotes.listNotes', listNotes);
     context.subscriptions.push(listNotesDisposable);
 
     // List tags
-    let listTagsDisposable = vscode.commands.registerCommand('extension.listTags', listTags);
+    let listTagsDisposable = vscode.commands.registerCommand('vsnotes.listTags', listTags);
     context.subscriptions.push(listTagsDisposable);
 
     // Run setup
-    let setupDisposable = vscode.commands.registerCommand('extension.setupNotes', setupNotes);
+    let setupDisposable = vscode.commands.registerCommand('vsnotes.setupNotes', setupNotes);
     context.subscriptions.push(setupDisposable);
 
     // Commit and Push
-    let commitPushDisposable = vscode.commands.registerCommand('extension.commitPush', commitPush);
+    let commitPushDisposable = vscode.commands.registerCommand('vsnotes.commitPush', commitPush);
     context.subscriptions.push(commitPushDisposable);
 
     // Search
-    let searchDisposable = vscode.commands.registerCommand('extension.search', search, {context: context});
+    let searchDisposable = vscode.commands.registerCommand('vsnotes.search', search, {context: context});
     context.subscriptions.push(searchDisposable);
 
     // Open note folder in new workspace
-    let openNoteFolderDisposable = vscode.commands.registerCommand('extension.openNoteFolder', () => {
+    let openNoteFolderDisposable = vscode.commands.registerCommand('vsnotes.openNoteFolder', () => {
       const uri = vscode.Uri.file(vscode.workspace.getConfiguration('vsnotes').get('defaultNotePath'));
       return vscode.commands.executeCommand('vscode.openFolder', uri, true);
     })
