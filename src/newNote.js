@@ -62,7 +62,13 @@ function createNote(noteFolder) {
   })
 
   inputBoxPromise.then(noteName => {
-    if (noteName == null || !noteName) {
+    // Check for aborting the new note dialog
+    if (noteName == null) {
+      return false
+    }
+
+    // Check for empty string but confirmation in the new note dialog
+    if (noteName == "" || !noteName) {
       noteName = defaultNoteName
     }
 
