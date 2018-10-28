@@ -116,6 +116,16 @@
                     "default": "_",
                     "description": "Automatically convert blank spaces in title to character. To disable set to `null`."
                 },
+                "vsnotes.template": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "default": [
+                      "new_template"
+                  ],
+                  "description": "Template name."
+                },
                 "vsnotes.defaultSnippet": {
                     "type": "object",
                     "properties": {

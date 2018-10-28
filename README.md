@@ -6,23 +6,25 @@ VS Notes is a simple tool that takes care of the creation and management of plai
 
 <!-- TOC -->
 
+- [VS NOTES](#vs-notes)
 - [Demo Video](#demo-video)
 - [Repository](#repository)
 - [Features](#features)
 - [Quick Start](#quick-start)
 - [Taking Notes](#taking-notes)
-    - [Note Filename](#note-filename)
-        - [Filename Tokens](#filename-tokens)
-        - [File Path Detection](#file-path-detection)
-        - [Snippets](#snippets)
-        - [Tags](#tags)
-        - [Explorer View](#explorer-view)
-        - [Commit and Push](#commit-and-push)
+  - [Note Filename](#note-filename)
+    - [Filename Tokens](#filename-tokens)
+    - [File Path Detection](#file-path-detection)
+    - [Snippets](#snippets)
+    - [Tags](#tags)
+    - [Custom Activity Bar Section & Explorer View](#custom-activity-bar-section--explorer-view)
+    - [Commit and Push](#commit-and-push)
 - [Settings](#settings)
 - [Tips and tricks](#tips-and-tricks)
-- [Roadmap & Features](#roadmap-features)
+- [Roadmap & Features](#roadmap--features)
 - [Change log](#change-log)
 - [Contributing](#contributing)
+- [Contributors](#contributors)
 - [Reviews](#reviews)
 
 <!-- /TOC -->
