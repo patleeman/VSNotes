@@ -16,6 +16,7 @@ VS Notes is a simple tool that takes care of the creation and management of plai
     - [Filename Tokens](#filename-tokens)
     - [File Path Detection](#file-path-detection)
     - [Snippets](#snippets)
+    - [Templates](#templates)
     - [Tags](#tags)
     - [Custom Activity Bar Section & Explorer View](#custom-activity-bar-section--explorer-view)
     - [Commit and Push](#commit-and-push)
@@ -131,6 +132,25 @@ VSNotes understands file paths and will create folders as necessary. When prompt
 - Set `langId` to a language and `name` to `null` and a menu will open with all available snippets for your chosen language.
 - Set both `langId` and `name` to null to disable automatic snippet insertion.
 
+### Templates
+
+VS Notes adds the concept of "templates", that basically are snippets. If setted inside settings, on creating new note will ask you which template use.
+
+```
+  "vsnote_TEMPLATE_NAME": {
+    "prefix": "vsnote_TEMPLATE_NAME",
+    "body": [
+      "---",
+      "tags:",
+      "\t- meeting",
+      "---",
+      "\n# Meeting: $1 - $CURRENT_DATE/$CURRENT_MONTH/$CURRENT_YEAR\n",
+      "$2",
+    ],
+    "description": "Generic Meeting Template Note",
+  },
+```
+
 ### Tags
 [New in 0.2.0] VS Notes adds the ability to pull tags out of documents containing a [YAML](http://yaml.org/) [frontmatter block (a la jekyll's frontmatter)](https://jekyllrb.com/docs/frontmatter/). YAML frontmatter is a way to encode machine parsable data in a way that is friendly to read and write.
 
@@ -232,6 +252,9 @@ Available settings
 
   // Hide the tags section in the sidebar. Requires application restart.
   "vsnotes.treeviewHideTags": false
+
+  // Define templates names (`vsnote_TEMPLATE_NAME`)
+  "vsnotes.templates": ["meeting"],
 ```
 
 # Tips and tricks

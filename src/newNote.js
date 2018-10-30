@@ -9,17 +9,22 @@ const {resolveHome} = require('./utils');
 // This function handles creation of a new note in default note folder
 function newNote() {
   const config = vscode.workspace.getConfiguration('vsnotes');
+  const folder = resolveHome(config.get('defaultNotePath'));
   const templates = config.get('templates');
 
-  const quickPickPromise = vscode.window.showQuickPick (templates, {
+  if (!templates || !templates.length) {
+    createNote({ folder });
+    return
+  }
+
+  vscode.window.showQuickPick (templates, {
     prompt: 'Select a template',
-    value: "default-notee",
   })
-
-  quickPickPromise.then(template => {
-    const folder = resolveHome(config.get('defaultNotePath'));
-
+  .then(template => {
+    console.log(template)
     createNote({ folder, template });
+  }, err => {
+    console.error(err);
   })
 }
 
@@ -110,13 +115,15 @@ function createNote({ folder: noteFolder, template }) {
   })
 }
 
-function createTemplate({ template }) {
+function createTemplate({ template = null }) {
   const config = vscode.workspace.getConfiguration('vsnotes');
 
   if (template != null) {
-    vscode.commands.executeCommand('editor.action.insertSnippet', ...[{ langId: 'markdown', name: `notee_${template}` }]).then(res => {
+    vscode.commands.executeCommand('editor.action.insertSnippet', ...[{ langId: 'markdown', name: `vsnote_${template}` }]).then(res => {
+      vscode.window.showInformationMessage(`Note for "${template}" created!`);
       console.log('template created: ', res)
     }, err => {
+      vscode.window.showErrorMessage('Template creation error.');
       console.error('template creation error: ', err)
     })
   } else {
