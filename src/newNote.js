@@ -18,7 +18,7 @@ function newNote() {
   }
 
   vscode.window.showQuickPick (templates, {
-    prompt: 'Select a template',
+    placeHolder: 'Please select a template. Hit esc to use default.',
   })
   .then(template => {
     console.log(template)

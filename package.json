@@ -2,7 +2,7 @@
     "name": "vsnotes",
     "displayName": "VSNotes",
     "description": "Simple VS Code extension for plain text note taking.",
-    "version": "0.6.0",
+    "version": "0.7.0",
     "publisher": "patricklee",
     "repository": {
         "type": "git",
@@ -116,15 +116,14 @@
                     "default": "_",
                     "description": "Automatically convert blank spaces in title to character. To disable set to `null`."
                 },
-                "vsnotes.template": {
+                "vsnotes.templates": {
                   "type": "array",
                   "items": {
                     "type": "string"
                   },
                   "default": [
-                      "new_template"
                   ],
-                  "description": "Template name."
+                  "description": "A list of markdown templates to choose from when creating a new note."
                 },
                 "vsnotes.defaultSnippet": {
                     "type": "object",

@@ -132,13 +132,15 @@ VSNotes understands file paths and will create folders as necessary. When prompt
 - Set `langId` to a language and `name` to `null` and a menu will open with all available snippets for your chosen language.
 - Set both `langId` and `name` to null to disable automatic snippet insertion.
 
-### Templates
+### Snippet selection
 
-VS Notes adds the concept of "templates". A template is basically a snippet so to create a new template just go to: Code > Preferences > User Snippets and add your template. For example:
+[New in 0.7.0] VS Notes adds the ability to choose markdown snippets on new note creation. To use this new feature, you first must add markdown snippets with a  `vsnote_` prefix.
+
+Navigate to `Code > Preferences > User Snippets > Markdown` and add additional snippets. For example:
 
 ```
-  "vsnote_TEMPLATE_NAME": {
-    "prefix": "vsnote_TEMPLATE_NAME",
+  "vsnote_meeting_template": {
+    "prefix": "vsnote_meeting_template",
     "body": [
       "---",
       "tags:",
@@ -147,19 +149,19 @@ VS Notes adds the concept of "templates". A template is basically a snippet so t
       "\n# Meeting: $1 - $CURRENT_DATE/$CURRENT_MONTH/$CURRENT_YEAR\n",
       "$2",
     ],
-    "description": "Generic Meeting Template Note",
+    "description": "Generic Meeting Template",
   },
 ```
 
-Once you create your template you have to tell VSNote you want to use your custom template, to do that just add an array of template names to your `settings.json` as below:
+Once you create your snippet in `settings.json`, add the `vsnotes.templates` to your settings and add the name of the template (without the `vsnote_` prefix)
 
 ```
 "vsnotes.templates": [
-  "TEMPLATE_NAME",
+  "meeting_template",
 ],
 ```
 
-Note that the snippets must be called `vsnote_TEMPLATE_NAME` and `TEMPLATE_NAME` is the name you setted in the `settings.json`.
+Afterwards when you execute the `Create a New Note` command, you will be shown a prompt to select which template you'd like to use for your new note. To use the default template, hit escape.
 
 ### Tags
 [New in 0.2.0] VS Notes adds the ability to pull tags out of documents containing a [YAML](http://yaml.org/) [frontmatter block (a la jekyll's frontmatter)](https://jekyllrb.com/docs/frontmatter/). YAML frontmatter is a way to encode machine parsable data in a way that is friendly to read and write.
