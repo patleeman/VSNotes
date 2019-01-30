@@ -79,17 +79,17 @@ class VSNotesTreeView  {
         const isDir = node.stats.isDirectory()
         const state = isDir ? vscode.TreeItemCollapsibleState.Collapsed : vscode.TreeItemCollapsibleState.None;
         let fileTreeItem = new vscode.TreeItem(node.file, state)
-        fileTreeItem.command = {
-          command: 'vscode.open',
-          title: '',
-          arguments: [vscode.Uri.file(node.path)]
-        }
         if (isDir) {
           fileTreeItem.iconPath = {
             light: path.join(__filename, '..', '..', 'media', 'light', 'file-directory.svg'),
             dark: path.join(__filename, '..', '..', 'media', 'dark', 'file-directory.svg')
           };
         } else {
+          fileTreeItem.command = {
+            command: 'vscode.open',
+            title: '',
+            arguments: [vscode.Uri.file(node.path)]
+          }
           fileTreeItem.iconPath = {
             light: path.join(__filename, '..', '..', 'media', 'light', 'file.svg'),
             dark: path.join(__filename, '..', '..', 'media', 'dark', 'file.svg')
