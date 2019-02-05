@@ -1,6 +1,6 @@
 
 const vscode = require('vscode');
-const klaw = require('klaw');
+import * as klaw from 'klaw';
 const path = require('path');
 const {resolveHome} = require('./utils');
 
@@ -12,7 +12,7 @@ module.exports = function () {
     .map(function (pattern) { return '(' + pattern + ')' })
     .join('|'));
   const noteFolderLen = noteFolder.length;
-  let files = [];
+  let files: klaw.Item[] = [];
 
   // Using klaw, recursively iterate through notes directory.
   klaw(noteFolder)
@@ -39,7 +39,7 @@ module.exports = function () {
           return 0;
         }
       });
-      const shortPaths = [];
+      const shortPaths: string[] = [];
       for (let j = 0; j < files.length; j++) {
         if (j >= listRecentLimit) {
           break;

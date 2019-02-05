@@ -1,4 +1,4 @@
-const path = require('path');
+import * as path from 'path';
 const os = require('os');
 
 // Resolves the home tilde.

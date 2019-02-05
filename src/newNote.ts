@@ -1,16 +1,21 @@
 
-const vscode = require('vscode');
+// const vscode = require('vscode');
+import * as vscode from 'vscode';
 const fs = require('fs-extra');
 const path = require('path');
 const moment = require('moment');
 const {resolveHome} = require('./utils');
 
+interface Note {
+  folder: string;
+  template?: string;
+}
 
 // This function handles creation of a new note in default note folder
-function newNote() {
+export function newNote() {
   const config = vscode.workspace.getConfiguration('vsnotes');
   const folder = resolveHome(config.get('defaultNotePath'));
-  const templates = config.get('templates');
+  const templates = config.get('templates', []);
 
   if (!templates || !templates.length) {
     createNote({ folder });
@@ -28,7 +33,7 @@ function newNote() {
   })
 }
 
-function newNoteInWorkspace() {
+export function newNoteInWorkspace() {
   const workspaces = vscode.workspace.workspaceFolders;
   if (workspaces == null || workspaces.length === 0) {
     vscode.window.showErrorMessage('No workspaces open.');
@@ -36,7 +41,7 @@ function newNoteInWorkspace() {
   } else if (workspaces.length === 1) {
     createNote({ folder: workspaces[0].uri.fsPath });
   } else {
-    const spaces = []
+    const spaces:string[] = []
     workspaces.forEach(workspace => {
       spaces.push(workspace.name)
     })
@@ -56,10 +61,10 @@ function newNoteInWorkspace() {
 }
 
 
-function createNote({ folder: noteFolder, template }) {
+function createNote({ folder: noteFolder, template }: Note) {
   const config = vscode.workspace.getConfiguration('vsnotes');
   const defaultNoteTitle = config.get('defaultNoteTitle');
-  const defaultNoteName = config.get('defaultNoteName');
+  const defaultNoteName = config.get<string>('defaultNoteName');
   const tokens = config.get('tokens');
   const noteTitleConvertSpaces = config.get('noteTitleConvertSpaces');
 
@@ -92,7 +97,7 @@ function createNote({ folder: noteFolder, template }) {
     }
 
     // Create the file
-    const createFilePromise = createFile(noteFolder, fileName, '');
+    const createFilePromise = createFile(noteFolder, fileName);
     createFilePromise.then(filePath => {
       if (typeof filePath !== 'string') {
         console.error('Invalid file path')
@@ -110,15 +115,15 @@ function createNote({ folder: noteFolder, template }) {
     })
 
   }, err => {
-    vscode.workspace.showErrorMessage('Error occurred while creating note.');
+    vscode.window.showErrorMessage('Error occurred while creating note.');
     console.error(err);
   })
 }
 
-function createTemplate({ template = null }) {
+function createTemplate({ template }) {
   const config = vscode.workspace.getConfiguration('vsnotes');
 
-  if (template != null) {
+  if (template) {
     vscode.commands.executeCommand('editor.action.insertSnippet', ...[{ langId: 'markdown', name: `vsnote_${template}` }]).then(res => {
       vscode.window.showInformationMessage(`Note for "${template}" created!`);
       console.log('template created: ', res)

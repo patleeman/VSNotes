@@ -1,4 +1,4 @@
-const vscode = require('vscode');
+import * as vscode from 'vscode';
 const fs = require('fs-extra');
 const path = require('path');
 const klaw = require('klaw');
@@ -6,15 +6,23 @@ const matter = require('gray-matter');
 const {resolveHome} = require('./utils');
 
 class VSNotesTreeView  {
+  config = vscode.workspace.getConfiguration('vsnotes');
+  baseDir;
+  ignorePattern;
+  hideTags;
+  hideFiles;
+  _onDidChangeTreeData;
+  onDidChangeTreeData;
+  
   constructor () {
-    const config = vscode.workspace.getConfiguration('vsnotes');
-    this.baseDir = resolveHome(config.get('defaultNotePath'));
-    this.ignorePattern = new RegExp(config.get('ignorePatterns')
+    this.baseDir = resolveHome(this.config.get('defaultNotePath'));
+    this.ignorePattern = new RegExp(this.config.get('ignorePatterns', [])
       .map(function (pattern) {return '(' + pattern + ')'})
       .join('|'));
-    this.hideTags = config.get('treeviewHideTags');
-    this.hideFiles = config.get('treeviewHideFiles');
 
+    this.hideTags = this.config.get('treeviewHideTags');
+    this.hideFiles = this.config.get('treeviewHideFiles');
+    
     this._onDidChangeTreeData = new vscode.EventEmitter();
     this.onDidChangeTreeData = this._onDidChangeTreeData.event;
   }
@@ -27,8 +35,7 @@ class VSNotesTreeView  {
     if (node) {
       switch (node.type) {
         case 'rootTag':
-          this.tags = Promise.resolve(this._getTags(this.baseDir))
-          return this.tags;
+          return Promise.resolve(this._getTags())
         case 'tag':
           return node.files;
         case 'rootFile':
@@ -37,7 +44,7 @@ class VSNotesTreeView  {
           return Promise.resolve(this._getDirectoryContents(node.path));
       }
     } else {
-      const treeview = [];
+      const treeview: any[] = [];
       if (!this.hideFiles) {
         treeview.push({
           type: 'rootFile'
@@ -103,7 +110,7 @@ class VSNotesTreeView  {
   _getDirectoryContents (filePath) {
     return new Promise ((resolve, reject) => {
       fs.readdir(filePath).then(files => {
-        let items = [];
+        let items: any[] = [];
         files.forEach(file => {
           if (!this.ignorePattern.test(file)) {
             items.push({
@@ -123,7 +130,7 @@ class VSNotesTreeView  {
 
   _getTags () {
     return new Promise((resolve, reject) => {
-      let files = [];
+      let files: Promise<any>[] = [];
 
       klaw(this.baseDir)
         .on('data', item => {
@@ -174,7 +181,7 @@ class VSNotesTreeView  {
               }
             }
             // Then build an array of tags
-            let tags = []
+            let tags: any = []
             for (let tag of Object.keys(tagIndex)) {
               tags.push({
                 type: 'tag',

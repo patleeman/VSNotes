@@ -1,8 +1,8 @@
-const vscode = require('vscode');
+import * as vscode from 'vscode';
 const {resolveHome} = require('./utils');
 
 module.exports = async function () {
-  const uri = vscode.Uri.file(vscode.workspace.getConfiguration('vsnotes').get('defaultNotePath'));
+  const uri = vscode.Uri.file(vscode.workspace.getConfiguration('vsnotes').get('defaultNotePath', ''));
   const folderPath = resolveHome(uri);
 
   // We need to check if a workspace folder is open. VSCode doesn't allow

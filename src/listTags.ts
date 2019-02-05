@@ -1,7 +1,7 @@
 const vscode = require('vscode');
 const path = require('path');
 const fs = require('fs-extra');
-const klaw = require('klaw');
+import * as klaw from 'klaw';
 const matter = require('gray-matter');
 const {resolveHome} = require('./utils');
 
@@ -50,7 +50,7 @@ function createTagIndex(noteFolderPath) {
     .join('|'));
 
   return new Promise((resolve, reject) => {
-    let files = [];
+    let files: Promise<any>[] = [];
 
     klaw(noteFolderPath)
       .on('data', item => {

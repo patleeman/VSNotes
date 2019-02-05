@@ -1,12 +1,12 @@
-const vscode = require('vscode');
+import * as vscode from 'vscode';
 const process = require('child_process');
 const {resolveHome} = require('./utils');
 
 module.exports = function () {
   const config = vscode.workspace.getConfiguration('vsnotes');
   const noteFolder = resolveHome(config.get('defaultNotePath'));
-  const command = config.get('commitPushShellCommand');
-  const defaultCommitMessage = config.get('commitPushDefaultCommitMessage');
+  const command = config.get('commitPushShellCommand', '');
+  const defaultCommitMessage = config.get<string>('commitPushDefaultCommitMessage');
   const options = {
     cwd: noteFolder
   }
