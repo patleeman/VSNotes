@@ -4,8 +4,10 @@ import { newNote, newNoteInWorkspace } from './newNote';
 const listNotes = require('./listNotes');
 const listTags = require('./listTags')
 const setupNotes = require('./setupNotes');
-const VSNotesTreeView = require('./treeView');
-const commitPush = require('./commitPush');
+import { VSNotesTreeView } from './treeView';
+// import { FileTreeDataProvider as VSNotesTreeView } from './tree-views/file-provider';
+// import { TagTreeDataProvider as VSNotesTreeView } from './tree-views/tag-provider';
+import * as commitPush from './commitPush';
 const search = require('./search');
 const utils = require('./utils');
 
