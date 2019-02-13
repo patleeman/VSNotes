@@ -1,20 +1,26 @@
 import * as vscode from 'vscode';
-const {resolveHome} = require('./utils');
+import { resolveHome } from './utils';
 
-module.exports = async function () {
-  const uri = vscode.Uri.file(vscode.workspace.getConfiguration('vsnotes').get('defaultNotePath', ''));
+export default async function() {
+  // const uri = vscode.Uri.file(vscode.workspace.getConfiguration('vsnotes').get('defaultNotePath', ''));
+  const uri = vscode.workspace.getConfiguration('vsnotes').get('defaultNotePath', '');
   const folderPath = resolveHome(uri);
 
   // We need to check if a workspace folder is open. VSCode doesn't allow
   // findInFile if a workspace folder isn't available.
   const openWorkspace = vscode.workspace.workspaceFolders;
   if (openWorkspace == null) {
-    vscode.window.showWarningMessage('Whoops, can\'t search without an open folder in the workspace. Open notes folder?', ...['Open']).then(val => {
-      if (val == 'Open') {
-        vscode.commands.executeCommand('vscode.openFolder', folderPath)
-      }
-    })
+    vscode.window
+      .showWarningMessage(
+        "Whoops, can't search without an open folder in the workspace. Open notes folder?",
+        ...['Open']
+      )
+      .then(val => {
+        if (val == 'Open') {
+          vscode.commands.executeCommand('vscode.openFolder', folderPath);
+        }
+      });
   } else {
-    vscode.commands.executeCommand('filesExplorer.findInFolder', folderPath)
+    vscode.commands.executeCommand('filesExplorer.findInFolder', folderPath);
   }
 }

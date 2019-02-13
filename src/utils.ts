@@ -1,19 +1,15 @@
+import * as vscode from 'vscode';
 import * as path from 'path';
-const os = require('os');
+import * as os from 'os';
 
 // Resolves the home tilde.
-function resolveHome(filepath) {
+export const resolveHome = (filepath: string | vscode.Uri): string | vscode.Uri => {
   if (path == null || !filepath) {
-    return ""
+    return '';
   }
 
   if (filepath[0] === '~') {
-    return path.join(os.homedir(), filepath.slice(1));
+    return path.join(os.homedir(), (<string>filepath).slice(1));
   }
-  return filepath
-}
-
-module.exports = {
-  resolveHome
-}
-
+  return filepath;
+};

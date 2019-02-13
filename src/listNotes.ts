@@ -1,16 +1,20 @@
-
-const vscode = require('vscode');
+import * as vscode from 'vscode';
 import * as klaw from 'klaw';
-const path = require('path');
-const {resolveHome} = require('./utils');
+import * as path from 'path';
+import { resolveHome } from './utils';
 
-module.exports = function () {
+export default function() {
   const config = vscode.workspace.getConfiguration('vsnotes');
-  const noteFolder = resolveHome(config.get('defaultNotePath'));
-  const listRecentLimit = config.get('listRecentLimit');
-  const ignorePattern = new RegExp(config.get('ignorePatterns')
-    .map(function (pattern) { return '(' + pattern + ')' })
-    .join('|'));
+  const noteFolder = <string>resolveHome(config.get('defaultNotePath', ''));
+  const listRecentLimit: number = +config.get('listRecentLimit', '');
+  const ignorePattern = new RegExp(
+    config
+      .get('ignorePatterns', [])
+      .map(function(pattern) {
+        return '(' + pattern + ')';
+      })
+      .join('|')
+  );
   const noteFolderLen = noteFolder.length;
   let files: klaw.Item[] = [];
 
@@ -23,12 +27,12 @@ module.exports = function () {
       }
     })
     .on('error', (err, item) => {
-      vscode.window.showErrorMessage('Error occurred while scanning file: ' + item)
+      vscode.window.showErrorMessage('Error occurred while scanning file: ' + item);
       console.error('Error while walking notes folder: ', item, err);
     })
     .on('end', () => {
       // Sort files and generate path array
-      files = files.sort(function (a, b) {
+      files = files.sort(function(a, b) {
         const aTime = new Date(a.stats.mtime);
         const bTime = new Date(b.stats.mtime);
         if (aTime > bTime) {
@@ -47,16 +51,22 @@ module.exports = function () {
         shortPaths.push(files[j].path.slice(noteFolderLen + 1, files[j].path.length));
       }
 
-      vscode.window.showQuickPick(shortPaths).then(res => {
-        if (res != null && res ) {
-          vscode.window.showTextDocument(vscode.Uri.file(path.join(noteFolder, res))).then(file => {
-            console.log('Opening file ', res);
-          }, err => {
-            console.error(err);
-          })
+      vscode.window.showQuickPick(shortPaths).then(
+        res => {
+          if (res != null && res) {
+            vscode.window.showTextDocument(vscode.Uri.file(path.join(noteFolder, res))).then(
+              file => {
+                console.log('Opening file ', res);
+              },
+              err => {
+                console.error(err);
+              }
+            );
+          }
+        },
+        err => {
+          console.error(err);
         }
-      }, err => {
-        console.error(err);
-      })
+      );
     });
 }
