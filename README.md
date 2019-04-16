@@ -15,8 +15,8 @@ VS Notes is a simple tool that takes care of the creation and management of plai
   - [Note Filename](#note-filename)
     - [Filename Tokens](#filename-tokens)
     - [File Path Detection](#file-path-detection)
-    - [Snippets](#snippets)
-    - [Templates](#templates)
+    - [Default Template](#default-template)
+    - [Custom Templates](#custom-templates)
     - [Tags](#tags)
     - [Custom Activity Bar Section & Explorer View](#custom-activity-bar-section--explorer-view)
     - [Commit and Push](#commit-and-push)
@@ -117,14 +117,14 @@ VSNotes understands file paths and will create folders as necessary. When prompt
 ![](https://github.com/patleeman/VSNotes/raw/master/img/vsnotes_path_detection_completed.png)
 
 
-### Snippets
+### Default Template
 
-[New in 0.2.0] VS Notes will automatically execute a snippet after creating a note to pre-populate the note with a handy form template. The default snippet is called vsnotes and created for the markdown language. You can override it by adding this option to your settings.json file and pointing it to a [custom snippet you've created](https://code.visualstudio.com/docs/editor/userdefinedsnippets).
+[New in 0.2.0] VS Notes will automatically execute a snippet after creating a note to pre-populate the note with a handy form template. The default snippet is called `vsnote_template_default` and created for the markdown language. You can override it by adding this option to your settings.json file and pointing it to a [custom snippet you've created](https://code.visualstudio.com/docs/editor/userdefinedsnippets).
 
 ```
   "vsnotes.defaultSnippet": {
     "langId": "markdown",
-    "name": "vsnotes"
+    "name": "vsnote_template_default"
   },
 ```
 
@@ -132,15 +132,15 @@ VSNotes understands file paths and will create folders as necessary. When prompt
 - Set `langId` to a language and `name` to `null` and a menu will open with all available snippets for your chosen language.
 - Set both `langId` and `name` to null to disable automatic snippet insertion.
 
-### Snippet selection
+### Custom Templates
 
-[New in 0.7.0] VS Notes adds the ability to choose markdown snippets on new note creation. To use this new feature, you first must add markdown snippets with a  `vsnote_` prefix.
+[New in 0.7.0] VS Notes adds the ability to choose markdown snippets on new note creation. To use this new feature, you first must add markdown snippets with a  `vsnote_template_` prefix.
 
 Navigate to `Code > Preferences > User Snippets > Markdown` and add additional snippets. For example:
 
 ```
-  "vsnote_meeting_template": {
-    "prefix": "vsnote_meeting_template",
+  "vsnote_template_meeting": {
+    "prefix": "vsnote_template_meeting",
     "body": [
       "---",
       "tags:",
@@ -153,11 +153,11 @@ Navigate to `Code > Preferences > User Snippets > Markdown` and add additional s
   },
 ```
 
-Once you create your snippet in `settings.json`, add the `vsnotes.templates` to your settings and add the name of the template (without the `vsnote_` prefix)
+Once you create your snippet in `settings.json`, add the `vsnotes.templates` to your settings and add the name of the template (without the `vsnote_template_` prefix)
 
 ```
 "vsnotes.templates": [
-  "meeting_template",
+  "meeting",
 ],
 ```
 
@@ -265,7 +265,7 @@ Available settings
   // Hide the tags section in the sidebar. Requires application restart.
   "vsnotes.treeviewHideTags": false
 
-  // Define templates names (`vsnote_TEMPLATE_NAME`)
+  // Define templates names (`vsnote_template_NAME`)
   "vsnotes.templates": ["meeting"],
 ```
 

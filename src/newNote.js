@@ -119,7 +119,7 @@ function createTemplate({ template = null }) {
   const config = vscode.workspace.getConfiguration('vsnotes');
 
   if (template != null) {
-    vscode.commands.executeCommand('editor.action.insertSnippet', ...[{ langId: 'markdown', name: `vsnote_${template}` }]).then(res => {
+    vscode.commands.executeCommand('editor.action.insertSnippet', ...[{ langId: 'markdown', name: `vsnote_template_${template}` }]).then(res => {
       vscode.window.showInformationMessage(`Note for "${template}" created!`);
       console.log('template created: ', res)
     }, err => {

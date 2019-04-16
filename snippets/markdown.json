@@ -1,6 +1,6 @@
 {
-    "vsnotes": {
-        "prefix": "vsnotes",
+    "vsnote_template_default": {
+        "prefix": "vsnote_template_default",
         "body": [
             "---",
             "tags:",
@@ -8,6 +8,18 @@
             "---",
             "$0"
         ],
-        "description": "VSNotes note template."
-    }
+        "description": "VSNotes note default template."
+    },
+    "vsnote_template_meeting": {
+    "prefix": "vsnote_template_meeting",
+    "body": [
+      "---",
+      "tags:",
+      "\t- meeting",
+      "---",
+      "\n# Meeting: $1 - $CURRENT_DATE/$CURRENT_MONTH/$CURRENT_YEAR\n",
+      "$2"
+    ],
+    "description": "Generic Meeting Template"
+  }
 }
