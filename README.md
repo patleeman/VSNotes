@@ -199,8 +199,6 @@ Access your notes no matter what you're doing. This new treeview adds a quick wa
 
 To customize the command and the default command and commit message, update the settings: `vsnotes.commitPushShellCommand` and `vsnotes.commitPushDefaultCommitMessage`.
 
-Note that this has not been tested on windows machines and may not work without modifying the command. Please test before using.
-
 # Settings
 Available settings
 
@@ -209,7 +207,7 @@ Available settings
   "vsnotes.commitPushDefaultCommitMessage": "VS Notes Commit and Push",
 
   // Shell command to execute in the note directory when the Commit and Push command is executed. The {msg} token will be replaced with the contents of an input box shown or, if empty, the default commit message.
-  "vsnotes.commitPushShellCommand": "git add -A && git commit -m '{msg}' && git push",
+  "vsnotes.commitPushShellCommand": "git add -A && git commit -m \"{msg}\" && git push",
 
   // Default title for new notes.
   "vsnotes.defaultNoteName": "New_Note",

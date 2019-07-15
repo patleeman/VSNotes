@@ -155,7 +155,7 @@
                 },
                 "vsnotes.commitPushShellCommand": {
                     "type": "string",
-                    "default": "git add -A && git commit -m '{msg}' && git push",
+                    "default": "git add -A && git commit -m \"{msg}\" && git push",
                     "description": "Shell command to execute in the note directory when the Commit and Push command is executed. The {msg} token will be replaced with the contents of an input box shown or, if empty, the default commit message."
                 },
                 "vsnotes.commitPushDefaultCommitMessage": {
