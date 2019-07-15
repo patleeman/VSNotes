@@ -196,6 +196,10 @@
                 "title": "VSNotes: List recent notes"
             },
             {
+                "command": "vsnotes.listNotes",
+                "title": "VSNotes: Open note"
+            },
+            {
                 "command": "vsnotes.listTags",
                 "title": "VSNotes: List tags"
             },
