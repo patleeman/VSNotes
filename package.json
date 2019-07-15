@@ -117,13 +117,12 @@
                     "description": "Automatically convert blank spaces in title to character. To disable set to `null`."
                 },
                 "vsnotes.templates": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  },
-                  "default": [
-                  ],
-                  "description": "A list of markdown templates to choose from when creating a new note."
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "default": [],
+                    "description": "A list of markdown templates to choose from when creating a new note."
                 },
                 "vsnotes.defaultSnippet": {
                     "type": "object",
@@ -164,14 +163,14 @@
                     "description": "The default commit message used if none is provided with the Commit and Push command."
                 },
                 "vsnotes.treeviewHideTags": {
-                  "type": "boolean",
-                  "default": false,
-                  "description": "Hide the tags section in the sidebar. Requires application restart."
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Hide the tags section in the sidebar. Requires application restart."
                 },
                 "vsnotes.treeviewHideFiles": {
-                  "type": "boolean",
-                  "default": false,
-                  "description": "Hide the files section in the sidebar. Requires application restart."
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Hide the files section in the sidebar. Requires application restart."
                 }
             }
         },
@@ -218,11 +217,11 @@
             }
         ],
         "keybindings": [
-          {
-            "command": "vsnotes.newNote",
-            "key": "",
-            "mac": ""
-          }
+            {
+                "command": "vsnotes.newNote",
+                "key": "",
+                "mac": ""
+            }
         ],
         "snippets": [
             {
@@ -239,13 +238,13 @@
             ]
         },
         "viewsContainers": {
-          "activitybar": [
-            {
-              "id": "vsnotes",
-              "title": "VS Notes",
-              "icon": "./media/icon/vsnotes_icon.svg"
-            }
-          ]
+            "activitybar": [
+                {
+                    "id": "vsnotes",
+                    "title": "VS Notes",
+                    "icon": "./media/icon/vsnotes_icon.svg"
+                }
+            ]
         },
         "menus": {
             "view/title": [
