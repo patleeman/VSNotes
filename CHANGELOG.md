@@ -7,6 +7,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ### Added
 - Added option `vsnotes.additionalNoteTitles` and ability to pick note title format
   during note creation.
+- Added "Open Note" command. Depricating `List Recent Notes` command and will remove in 0.8.0.
 
 ### Fixes
 - Fixed event-stream vulnerability and update dependencies.

@@ -42,7 +42,7 @@ VS Notes is a simple tool that takes care of the creation and management of plai
 # Features
 1. Access commands quickly from the VS Code command palette `Ctrl/Cmd + Shift + p`.
 2. Set a base folder for your notes and all notes created will be saved in that folder.
-3. Easily access latest notes with `List Recent Notes` command.
+3. Easily access latest notes with `Open Note` command.
 4. Retrieve notes via tags in YAML encoded frontmatter on your notes.
 5. Open your note folder in a new window.
 6. View your notes and tags in your filebar.

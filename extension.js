@@ -26,7 +26,7 @@ function activate(context) {
     let newNoteInWorkspaceDisposable = vscode.commands.registerCommand('vsnotes.newNoteInWorkspace', newNoteInWorkspace);
     context.subscriptions.push(newNoteInWorkspaceDisposable);
 
-    // List recent notes in notes folder
+    // Open a note
     let listNotesDisposable = vscode.commands.registerCommand('vsnotes.listNotes', listNotes);
     context.subscriptions.push(listNotesDisposable);
 
