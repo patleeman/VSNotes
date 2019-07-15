@@ -55,14 +55,14 @@ class VSNotesTreeView  {
   getTreeItem (node) {
     switch (node.type) {
       case 'rootTag':
-        let rootTagTreeItem = new vscode.TreeItem('Tags', vscode.TreeItemCollapsibleState.Collapsed);
+        let rootTagTreeItem = new vscode.TreeItem('Tags', vscode.TreeItemCollapsibleState.Expanded);
         rootTagTreeItem.iconPath = {
           light: path.join(__filename, '..', '..', 'media', 'light', 'tag.svg'),
           dark: path.join(__filename, '..', '..', 'media', 'dark', 'tag.svg')
         };
         return rootTagTreeItem;
       case 'rootFile':
-        let rootFileTreeItem = new vscode.TreeItem('Files', vscode.TreeItemCollapsibleState.Collapsed);
+        let rootFileTreeItem = new vscode.TreeItem('Files', vscode.TreeItemCollapsibleState.Expanded);
         rootFileTreeItem.iconPath = {
           light: path.join(__filename, '..', '..', 'media', 'light', 'file-directory.svg'),
           dark: path.join(__filename, '..', '..', 'media', 'dark', 'file-directory.svg')
