@@ -2,7 +2,7 @@
     "name": "vsnotes",
     "displayName": "VSNotes",
     "description": "Simple VS Code extension for plain text note taking.",
-    "version": "0.7.0",
+    "version": "0.7.1",
     "publisher": "patricklee",
     "repository": {
         "type": "git",
@@ -100,6 +100,14 @@
                     "type": "string",
                     "default": "{dt}_{title}.{ext}",
                     "description": "Default note title. Utilizes tokens set in vsnotes.tokens."
+                },
+                "vsnotes.additionalNoteTitles": {
+                  "type": "array",
+                  "items": {
+                      "type": "string"
+                  },
+                  "default": [],
+                  "description": "List of additional note title tokens to choose from. If supplied, a picker will be shown when creating a new note."
                 },
                 "vsnotes.defaultNoteName": {
                     "type": "string",

@@ -9,11 +9,12 @@ const {resolveHome} = require('./utils');
 // This function handles creation of a new note in default note folder
 function newNote() {
   const config = vscode.workspace.getConfiguration('vsnotes');
-  const folder = resolveHome(config.get('defaultNotePath'));
+  const noteFolder = resolveHome(config.get('defaultNotePath'));
   const templates = config.get('templates');
 
+
   if (!templates || !templates.length) {
-    createNote({ folder });
+    createNote({ noteFolder });
     return
   }
 
@@ -22,7 +23,7 @@ function newNote() {
   })
   .then(template => {
     console.log(template)
-    createNote({ folder, template });
+    createNote({ noteFolder, template });
   }, err => {
     console.error(err);
   })
@@ -34,7 +35,7 @@ function newNoteInWorkspace() {
     vscode.window.showErrorMessage('No workspaces open.');
     return
   } else if (workspaces.length === 1) {
-    createNote({ folder: workspaces[0].uri.fsPath });
+    createNote({ noteFolder: workspaces[0].uri.fsPath });
   } else {
     const spaces = []
     workspaces.forEach(workspace => {
@@ -46,7 +47,7 @@ function newNoteInWorkspace() {
       workspaces.every(workspace => {
         if (workspace.name === workspaceName) {
           const uri = workspace.uri
-          createNote({ folder: uri.fsPath })
+          createNote({ noteFolder: uri.fsPath })
           return false;
         }
         return true
@@ -56,12 +57,20 @@ function newNoteInWorkspace() {
 }
 
 
-function createNote({ folder: noteFolder, template }) {
+async function createNote({ noteFolder, template }) {
   const config = vscode.workspace.getConfiguration('vsnotes');
-  const defaultNoteTitle = config.get('defaultNoteTitle');
   const defaultNoteName = config.get('defaultNoteName');
   const tokens = config.get('tokens');
   const noteTitleConvertSpaces = config.get('noteTitleConvertSpaces');
+
+  const noteTitles = config.get('additionalNoteTitles');
+  let noteTitle = config.get('defaultNoteTitle');
+  if (noteTitles.length > 0) {
+    noteTitle = await vscode.window.showQuickPick([noteTitle, ...noteTitles], {
+      placeHolder: 'Please select a note title format.'
+    })
+  }
+
 
   if (noteFolder == null || !noteFolder) {
     vscode.window.showErrorMessage('Default note folder not found. Please run setup.');
@@ -70,7 +79,7 @@ function createNote({ folder: noteFolder, template }) {
 
   // Get the name for the note
   const inputBoxPromise = vscode.window.showInputBox({
-    prompt: `Note title? Current Format ${defaultNoteTitle}. Hit enter for instant note.`,
+    prompt: `Note title? Current Format ${noteTitle}. Hit enter for instant note.`,
     value: "",
   })
 
@@ -85,7 +94,7 @@ function createNote({ folder: noteFolder, template }) {
       noteName = defaultNoteName
     }
 
-    let fileName = replaceTokens(defaultNoteTitle, noteName, tokens);
+    let fileName = replaceTokens(noteTitle, noteName, tokens);
 
     if (noteTitleConvertSpaces != null) {
       fileName = fileName.replace(/\s/g, noteTitleConvertSpaces);

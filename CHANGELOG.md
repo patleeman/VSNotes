@@ -3,6 +3,14 @@ All notable changes to the "vsnotes" extension will be documented in this file.
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.7.1] - 2019-7-15
+### Added
+- Added option `vsnotes.additionalNoteTitles` and ability to pick note title format
+  during note creation.
+
+### Fixes
+- Fixed event-stream vulnerability and update dependencies.
+
 ## [0.6.0] - 2018-10-8
 ### Added
 - You can now use the home designator (~/) in the defaultNotePath.
