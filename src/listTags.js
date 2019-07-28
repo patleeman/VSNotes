@@ -78,7 +78,7 @@ function createTagIndex(noteFolderPath) {
           for (let i = 0; i < files.length; i++) {
             if (files[i] != null && files[i]) {
               const parsedFrontMatter = matter(files[i].contents);
-              if ('tags' in parsedFrontMatter.data) {
+              if ('tags' in parsedFrontMatter.data && parsedFrontMatter.data.tags) {
                 for (let tag of parsedFrontMatter.data.tags) {
                   if (tag in tagIndex) {
                     tagIndex[tag].push(files[i].path);
