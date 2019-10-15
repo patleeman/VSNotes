@@ -146,7 +146,7 @@
                     },
                     "default": {
                         "langId": "markdown",
-                        "name": "vsnotes"
+                        "name": "vsnote_template_default"
                     },
                     "description": "Default vscode snippet to execute after creating a note. Set both langId and name to null to disable."
                 },
