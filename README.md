@@ -228,7 +228,7 @@ Available settings
 // Default vscode snippet to execute after creating a note. Set both langId and name to null to disable.
 "vsnotes.defaultSnippet": {
     "langId": "markdown",
-    "name": "vsnotes"
+    "name": "vsnote_template_default"
 },
 
 // Regular expressions for file names to ignore when parsing documents in note folder.
