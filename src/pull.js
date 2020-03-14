@@ -15,7 +15,7 @@ module.exports = function () {
       vscode.window.showErrorMessage('Pull failed to execute. Check console for more information');
       console.error('Pull failed. Here is the error: ', err);
     } else {
-      vscode.window.showInformationMessage(`Pull Finished`);
+      vscode.window.showInformationMessage(`Pull Finished at ${noteFolder}`);
       console.log(stdout, stderr);
     }
   })

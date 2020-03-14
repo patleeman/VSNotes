@@ -31,6 +31,7 @@
         "onCommand:vsnotes.setupNotes",
         "onCommand:vsnotes.openNoteFolder",
         "onCommand:vsnotes.commitPush",
+        "onCommand:vsnotes.pull",
         "onCommand:vsnotes.search",
         "onView:vsnotes"
     ],
