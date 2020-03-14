@@ -203,6 +203,9 @@ Access your notes no matter what you're doing. This new treeview adds a quick wa
 
 To customize the command and the default command and commit message, update the settings: `vsnotes.commitPushShellCommand` and `vsnotes.commitPushDefaultCommitMessage`.
 
+### Pull
+[New in 0.8.0] The Pull command is a companion to the Commit and Push command. It pulls from remote repo with `git pull` by default. To customize the command, update the settings `vsnotes.pullShellCommand`.
+
 # Settings
 Available settings
 
