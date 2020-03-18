@@ -48,9 +48,10 @@ function activate(context) {
 
     // Open note folder in new workspace
     let openNoteFolderDisposable = vscode.commands.registerCommand('vsnotes.openNoteFolder', () => {
-      const uri = vscode.Uri.file(vscode.workspace.getConfiguration('vsnotes').get('defaultNotePath'));
-      const folderPath = utils.resolveHome(uri)
-      return vscode.commands.executeCommand('vscode.openFolder', folderPath, true);
+      const noteFolder = vscode.workspace.getConfiguration('vsnotes').get('defaultNotePath');
+      const folderPath = utils.resolveHome(noteFolder);
+      const uri = vscode.Uri.file(folderPath)
+      return vscode.commands.executeCommand('vscode.openFolder', uri, true);
     })
     context.subscriptions.push(openNoteFolderDisposable);
 
