@@ -298,7 +298,7 @@
     },
     "dependencies": {
         "fs-extra": "^6.0.1",
-        "gray-matter": "^4.0.1",
+        "gray-matter": "^4.0.2",
         "klaw": "^2.1.1",
         "moment": "^2.22.2"
     }

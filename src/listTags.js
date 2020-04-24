@@ -2,8 +2,8 @@ const vscode = require('vscode');
 const path = require('path');
 const fs = require('fs-extra');
 const klaw = require('klaw');
-const matter = require('gray-matter');
 const {resolveHome} = require('./utils');
+const FrontMatterParser = require('./lib/FrontMatterParser')
 
 module.exports = function () {
   const config = vscode.workspace.getConfiguration('vsnotes');
@@ -77,14 +77,11 @@ function createTagIndex(noteFolderPath) {
           let tagIndex = {};
           for (let i = 0; i < files.length; i++) {
             if (files[i] != null && files[i]) {
-              const parsedFrontMatter = parseFrontMatter(files[i]);
-              if (parsedFrontMatter && 'tags' in parsedFrontMatter.data && parsedFrontMatter.data.tags) {
-                for (let tag of parsedFrontMatter.data.tags) {
-                  if (tag in tagIndex) {
-                    tagIndex[tag].push(files[i].path);
-                  } else {
-                    tagIndex[tag] = [files[i].path];
-                  }
+              for (let tag of new FrontMatterParser(files[i]).tags) {
+                if (tag in tagIndex) {
+                  tagIndex[tag].push(files[i].path);
+                } else {
+                  tagIndex[tag] = [files[i].path];
                 }
               }
             }
@@ -95,18 +92,4 @@ function createTagIndex(noteFolderPath) {
         })
       })
   })
-}
-
-function parseFrontMatter(file) {
-  try {
-    const parsedFrontMatter = matter(file.contents)
-    if (!(parsedFrontMatter.data instanceof Object)) {
-      console.error('YAML front-matter is not an object: ', file.path);
-      return null;
-    }
-    return parsedFrontMatter;
-  } catch (e) {
-    console.error(file.path, e);
-    return null;
-  }
 }
