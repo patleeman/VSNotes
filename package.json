@@ -2,7 +2,7 @@
     "name": "vsnotes",
     "displayName": "VSNotes",
     "description": "Simple VS Code extension for plain text note taking.",
-    "version": "0.7.1",
+    "version": "0.8.0",
     "publisher": "patricklee",
     "repository": {
         "type": "git",
@@ -31,6 +31,7 @@
         "onCommand:vsnotes.setupNotes",
         "onCommand:vsnotes.openNoteFolder",
         "onCommand:vsnotes.commitPush",
+        "onCommand:vsnotes.pull",
         "onCommand:vsnotes.search",
         "onView:vsnotes"
     ],
@@ -102,12 +103,12 @@
                     "description": "Default note title. Utilizes tokens set in vsnotes.tokens."
                 },
                 "vsnotes.additionalNoteTitles": {
-                  "type": "array",
-                  "items": {
-                      "type": "string"
-                  },
-                  "default": [],
-                  "description": "List of additional note title tokens to choose from. If supplied, a picker will be shown when creating a new note."
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "default": [],
+                    "description": "List of additional note title tokens to choose from. If supplied, a picker will be shown when creating a new note."
                 },
                 "vsnotes.defaultNoteName": {
                     "type": "string",
@@ -165,6 +166,11 @@
                     "default": "git add -A && git commit -m \"{msg}\" && git push",
                     "description": "Shell command to execute in the note directory when the Commit and Push command is executed. The {msg} token will be replaced with the contents of an input box shown or, if empty, the default commit message."
                 },
+                "vsnotes.pullShellCommand": {
+                    "type": "string",
+                    "default": "git pull",
+                    "description": "Shell command to execute in the note directory when the Pull command is executed."
+                },
                 "vsnotes.commitPushDefaultCommitMessage": {
                     "type": "string",
                     "default": "VS Notes Commit and Push",
@@ -214,6 +220,10 @@
             {
                 "command": "vsnotes.commitPush",
                 "title": "VSNotes: Commit and Push"
+            },
+            {
+                "command": "vsnotes.pull",
+                "title": "VSNotes: Pull"
             },
             {
                 "command": "vsnotes.search",

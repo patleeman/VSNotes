@@ -6,6 +6,7 @@ const listTags = require('./src/listTags')
 const setupNotes = require('./src/setupNotes');
 const VSNotesTreeView = require('./src/treeView');
 const commitPush = require('./src/commitPush');
+const pull = require('./src/pull');
 const search = require('./src/search');
 const utils = require('./src/utils');
 
@@ -41,6 +42,9 @@ function activate(context) {
     // Commit and Push
     let commitPushDisposable = vscode.commands.registerCommand('vsnotes.commitPush', commitPush);
     context.subscriptions.push(commitPushDisposable);
+
+    let pullDisposable = vscode.commands.registerCommand('vsnotes.pull', pull);
+    context.subscriptions.push(pullDisposable);
 
     // Search
     let searchDisposable = vscode.commands.registerCommand('vsnotes.search', search, {context: context});
