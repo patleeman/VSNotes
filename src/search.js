@@ -2,8 +2,8 @@ const vscode = require('vscode');
 const {resolveHome} = require('./utils');
 
 module.exports = async function () {
-  const uri = vscode.Uri.file(vscode.workspace.getConfiguration('vsnotes').get('defaultNotePath'));
-  const folderPath = resolveHome(uri);
+  const config = vscode.workspace.getConfiguration('vsnotes');
+  const folderPath = vscode.Uri.file(resolveHome(config.get('defaultNotePath')));
 
   // We need to check if a workspace folder is open. VSCode doesn't allow
   // findInFile if a workspace folder isn't available.
