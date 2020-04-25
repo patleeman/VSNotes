@@ -127,7 +127,7 @@ class VSNotesTreeView  {
 
       klaw(this.baseDir)
         .on('data', item => {
-          files.push(new Promise((res, rej) => {
+          files.push(new Promise((res) => {
             const fileName = path.basename(item.path);
             if (!item.stats.isDirectory() && !this.ignorePattern.test(fileName)) {
               fs.readFile(item.path).then(contents => {

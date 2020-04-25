@@ -24,7 +24,7 @@ module.exports = function () {
           if (chosenShortPath != null && chosenShortPath) {
             const fullpath = path.join(noteFolder, chosenShortPath)
 
-            vscode.window.showTextDocument(vscode.Uri.file(fullpath)).then(file => {
+            vscode.window.showTextDocument(vscode.Uri.file(fullpath)).then(() => {
               console.log('Opening file ' + fullpath);
             }, err => {
               console.error(err);
@@ -54,7 +54,7 @@ function createTagIndex(noteFolderPath) {
 
     klaw(noteFolderPath)
       .on('data', item => {
-        files.push(new Promise((res, rej) => {
+        files.push(new Promise((res) => {
           const fileName = path.basename(item.path);
           if (!item.stats.isDirectory() && !ignorePattern.test(fileName)) {
             fs.readFile(item.path).then(contents => {
