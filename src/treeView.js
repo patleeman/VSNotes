@@ -2,8 +2,8 @@ const vscode = require('vscode');
 const fs = require('fs-extra');
 const path = require('path');
 const klaw = require('klaw');
-const matter = require('gray-matter');
 const {resolveHome} = require('./utils');
+const FrontMatterParser = require('./lib/FrontMatterParser')
 
 class VSNotesTreeView  {
   constructor () {
@@ -127,7 +127,7 @@ class VSNotesTreeView  {
 
       klaw(this.baseDir)
         .on('data', item => {
-          files.push(new Promise((res, rej) => {
+          files.push(new Promise((res) => {
             const fileName = path.basename(item.path);
             if (!item.stats.isDirectory() && !this.ignorePattern.test(fileName)) {
               fs.readFile(item.path).then(contents => {
@@ -161,14 +161,11 @@ class VSNotesTreeView  {
             let tagIndex = {};
             for (let i = 0; i < files.length; i++) {
               if (files[i] != null && files[i]) {
-                const parsedFrontMatter = this._parseFrontMatter(files[i]);
-                if (parsedFrontMatter && 'tags' in parsedFrontMatter.data && parsedFrontMatter.data.tags) {
-                  for (let tag of parsedFrontMatter.data.tags) {
-                    if (tag in tagIndex) {
-                      tagIndex[tag].push(files[i].payload);
-                    } else {
-                      tagIndex[tag] = [files[i].payload];
-                    }
+                for (let tag of new FrontMatterParser(files[i]).tags) {
+                  if (tag in tagIndex) {
+                    tagIndex[tag].push(files[i].payload);
+                  } else {
+                    tagIndex[tag] = [files[i].payload];
                   }
                 }
               }
@@ -190,20 +187,6 @@ class VSNotesTreeView  {
           })
         })
     });
-  }
-
-  _parseFrontMatter (file) {
-    try {
-      const parsedFrontMatter = matter(file.contents)
-      if (!(parsedFrontMatter.data instanceof Object)) {
-        console.error('YAML front-matter is not an object: ', file.path);
-        return null;
-      }
-      return parsedFrontMatter;
-    } catch (e) {
-      console.error(file.path, e);
-      return null;
-    }
   }
 }
 
