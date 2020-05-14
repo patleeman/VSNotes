@@ -2,7 +2,7 @@
 const vscode = require('vscode');
 const klaw = require('klaw');
 const path = require('path');
-const {resolveHome} = require('./utils');
+const { resolveHome } = require('./utils');
 
 module.exports = function () {
   const config = vscode.workspace.getConfiguration('vsnotes');
@@ -41,14 +41,14 @@ module.exports = function () {
       });
       const shortPaths = [];
       for (let j = 0; j < files.length; j++) {
-        if (j >= listRecentLimit) {
+        if (j >= listRecentLimit && listRecentLimit != 0) {
           break;
         }
         shortPaths.push(files[j].path.slice(noteFolderLen + 1, files[j].path.length));
       }
 
       vscode.window.showQuickPick(shortPaths).then(res => {
-        if (res != null && res ) {
+        if (res != null && res) {
           vscode.window.showTextDocument(vscode.Uri.file(path.join(noteFolder, res))).then(file => {
             console.log('Opening file ', res);
           }, err => {
