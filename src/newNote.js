@@ -181,12 +181,17 @@ function replaceTokens (format, title, tokens) {
             newFormat = newFormat.replace(new RegExp(result[0], 'g'), moment().format(token.format));
             break;
           case "title":
-            let prependedPath = [];
             // Check if its a nested path
-            const splitTitle = title.split(path.sep);
-            if (splitTitle.length > 1) {
-              title = splitTitle[splitTitle.length - 1];
-              prependedPath = splitTitle.slice(0,splitTitle.length - 1);
+            let prependedPath = [];
+            let sepMatch = title.match(/\\|\//);  //Allow users to use \ or / to seperate paths
+            if (Array.isArray(sepMatch) && sepMatch.length === 1) {
+              let sep = sepMatch[0];
+              let otherSep = (sep === '/') ? '\\' : '/';
+              let splitTitle = title.replace(otherSep, sep).split(sep);
+              if (splitTitle.length > 1) {
+                title = splitTitle[splitTitle.length - 1];
+                prependedPath = splitTitle.slice(0, splitTitle.length - 1);
+              }
             }
             newFormat = prependedPath.concat(newFormat.replace(new RegExp(token.token, 'g'), title)).join(path.sep);
             break;
