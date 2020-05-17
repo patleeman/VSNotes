@@ -121,7 +121,10 @@
                     "description": "Number of recent files to show when running command `List Notes`."
                 },
                 "vsnotes.noteTitleConvertSpaces": {
-                    "type": ["string", "null"],
+                    "type": [
+                        "string",
+                        "null"
+                    ],
                     "default": "_",
                     "description": "Automatically convert blank spaces in title to character. To disable set to `null`."
                 },
@@ -236,6 +239,10 @@
                     "light": "./media/light/sync.svg",
                     "dark": "./media/dark/sync.svg"
                 }
+            },
+            {
+                "command": "vsnotes.deleteNote",
+                "title": "Delete Note"
             }
         ],
         "keybindings": [
@@ -274,6 +281,19 @@
                     "command": "vsnotes.refreshVSNotesView",
                     "when": "view == vsnotes",
                     "group": "navigation"
+                }
+            ],
+            "commandPalette": [
+                {
+                    "command": "vsnotes.deleteNote",
+                    "when": "false"
+                }
+            ],
+            "view/item/context": [
+                {
+                    "command": "vsnotes.deleteNote",
+                    "group": "7_modification",
+                    "when": "viewItem == note"
                 }
             ]
         }
