@@ -1,6 +1,7 @@
 const vscode = require('vscode');
 
 const {newNote, newNoteInWorkspace} = require('./src/newNote');
+const {deleteNote} = require('./src/deleteNote');
 const listNotes = require('./src/listNotes');
 const listTags = require('./src/listTags')
 const setupNotes = require('./src/setupNotes');
@@ -26,6 +27,10 @@ function activate(context) {
     // Create a new note in a current workspace
     let newNoteInWorkspaceDisposable = vscode.commands.registerCommand('vsnotes.newNoteInWorkspace', newNoteInWorkspace);
     context.subscriptions.push(newNoteInWorkspaceDisposable);
+
+    // Delete a new note
+    let deleteNoteDisposable = vscode.commands.registerCommand('vsnotes.deleteNote', deleteNote);
+    context.subscriptions.push(deleteNoteDisposable);
 
     // Open a note
     let listNotesDisposable = vscode.commands.registerCommand('vsnotes.listNotes', listNotes);

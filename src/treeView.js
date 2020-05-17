@@ -94,6 +94,7 @@ class VSNotesTreeView  {
             light: path.join(__filename, '..', '..', 'media', 'light', 'file.svg'),
             dark: path.join(__filename, '..', '..', 'media', 'dark', 'file.svg')
           };
+          fileTreeItem.contextValue="note";
         }
         return fileTreeItem;
     }
