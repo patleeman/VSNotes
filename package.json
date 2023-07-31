@@ -35,6 +35,7 @@
         "onCommand:vsnotes.search",
         "onView:vsnotes"
     ],
+    "extensionKind": ["ui", "workspace"],
     "main": "./extension",
     "contributes": {
         "configuration": {
